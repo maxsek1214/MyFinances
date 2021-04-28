@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/arrow"
+        android:drawable="@drawable/vd_pathmorph_drawer_arrow"
+        android:state_activated="false" />
+
+    <item
+        android:id="@+id/hamburger"
+        android:drawable="@drawable/vd_pathmorph_drawer_hamburger"
+        android:state_activated="true" />
+
+    <transition
+        android:drawable="@drawable/avd_pathmorph_drawer_hamburger_to_arrow"
+        android:fromId="@id/hamburger"
+        android:toId="@id/arrow" />
+
+    <transition
+        android:drawable="@drawable/avd_pathmorph_drawer_arrow_to_hamburger"
+        android:fromId="@id/arrow"
+        android:toId="@id/hamburger" />
+
+</animated-selector>
