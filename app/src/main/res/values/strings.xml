@@ -76,6 +76,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="splash_app_name">My Finances [%s]</string>
+    <string name="splash_app_name">My Finances [v %s]</string>
+    <string name="menu_bottomappbar_settings">Settings</string>
+    <string name="menu_bottomappbar_transactions_filter">Filter</string>
 
 </resources>

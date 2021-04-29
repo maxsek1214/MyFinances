@@ -48,5 +48,6 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
                 } else Log.d(TAG, "DB is not created [collect: $it]")
             }
         }
+        binding.executePendingBindings()
     }
 }

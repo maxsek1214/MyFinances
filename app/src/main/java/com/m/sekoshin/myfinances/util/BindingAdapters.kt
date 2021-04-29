@@ -1,29 +1,32 @@
 package com.m.sekoshin.myfinances.util
 
-import android.graphics.drawable.Drawable
+import android.graphics.drawable.ColorDrawable
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import android.view.WindowInsets
+import android.widget.Spinner
 import androidx.core.view.updateLayoutParams
 import androidx.databinding.BindingAdapter
-//import com.bumptech.glide.Glide
 import com.google.android.material.elevation.ElevationOverlayProvider
 
-//@BindingAdapter("srcUrl", "circleCrop", "placeholder", "loadListener", requireAll = false)
-//fun ImageView.bindSrcUrl(
-//        url: String,
-//        circleCrop: Boolean,
-//        placeholder: Drawable?,
-//        loadListener: GlideDrawableLoadListener?
-//) {
-//    val request = Glide.with(this).load(url)
-//    if (circleCrop) request.circleCrop()
-//    if (placeholder != null) request.placeholder(placeholder)
-//    if (loadListener != null) request.listener(loadListener)
-//    request.into(this)
-//}
+@BindingAdapter("popupElevationOverlay")
+fun Spinner.bindPopupElevationOverlay(popupElevationOverlay: Float) {
+    setPopupBackgroundDrawable(ColorDrawable(
+            ElevationOverlayProvider(context)
+                    .compositeOverlayWithThemeSurfaceColorIfNeeded(popupElevationOverlay)
+    ))
+}
+
+@BindingAdapter("goneIf")
+fun View.bindGoneIf(gone: Boolean) {
+    visibility = if (gone) {
+        GONE
+    } else {
+        VISIBLE
+    }
+}
 
 /**
  * Alter the background color as if this view had the given elevation. We don't want to actually
@@ -48,6 +51,7 @@ fun View.bindLayoutFullscreen(previousFullscreen: Boolean, fullscreen: Boolean) 
                 View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
     }
 }
+
 
 @BindingAdapter(
         "paddingLeftSystemWindowInsets",
@@ -74,12 +78,11 @@ fun View.applySystemWindowInsetsPadding(
         return
     }
 
-    doOnApplyWindowInsets { view, insets, padding, _ ->
-        val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-        val left = if (applyLeft) systemBars.left else 0
-        val top = if (applyTop) systemBars.top else 0
-        val right = if (applyRight) systemBars.right else 0
-        val bottom = if (applyBottom) systemBars.bottom else 0
+    doOnApplyWindowInsets { view, insets, padding, _, _ ->
+        val left = if (applyLeft) insets.systemWindowInsetLeft else 0
+        val top = if (applyTop) insets.systemWindowInsetTop else 0
+        val right = if (applyRight) insets.systemWindowInsetRight else 0
+        val bottom = if (applyBottom) insets.systemWindowInsetBottom else 0
 
         view.setPadding(
                 padding.left + left,
@@ -115,12 +118,11 @@ fun View.applySystemWindowInsetsMargin(
         return
     }
 
-    doOnApplyWindowInsets { view, insets, _, margin ->
-        val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-        val left = if (applyLeft) systemBars.left else 0
-        val top = if (applyTop) systemBars.top else 0
-        val right = if (applyRight) systemBars.right else 0
-        val bottom = if (applyBottom) systemBars.bottom else 0
+    doOnApplyWindowInsets { view, insets, _, margin, _ ->
+        val left = if (applyLeft) insets.systemWindowInsetLeft else 0
+        val top = if (applyTop) insets.systemWindowInsetTop else 0
+        val right = if (applyRight) insets.systemWindowInsetRight else 0
+        val bottom = if (applyBottom) insets.systemWindowInsetBottom else 0
 
         view.updateLayoutParams<ViewGroup.MarginLayoutParams> {
             leftMargin = margin.left + left
@@ -132,15 +134,16 @@ fun View.applySystemWindowInsetsMargin(
 }
 
 fun View.doOnApplyWindowInsets(
-        block: (View, WindowInsetsCompat, InitialPadding, InitialMargin) -> Unit
+        block: (View, WindowInsets, InitialPadding, InitialMargin, Int) -> Unit
 ) {
     // Create a snapshot of the view's padding & margin states
     val initialPadding = recordInitialPaddingForView(this)
     val initialMargin = recordInitialMarginForView(this)
+    val initialHeight = recordInitialHeightForView(this)
     // Set an actual OnApplyWindowInsetsListener which proxies to the given
     // lambda, also passing in the original padding & margin states
-    ViewCompat.setOnApplyWindowInsetsListener(this) { v, insets ->
-        block(v, insets, initialPadding, initialMargin)
+    setOnApplyWindowInsetsListener { v, insets ->
+        block(v, insets, initialPadding, initialMargin, initialHeight)
         // Always return the insets, so that children can also use them
         insets
     }
@@ -160,6 +163,10 @@ private fun recordInitialMarginForView(view: View): InitialMargin {
     val lp = view.layoutParams as? ViewGroup.MarginLayoutParams
             ?: throw IllegalArgumentException("Invalid view layout params")
     return InitialMargin(lp.leftMargin, lp.topMargin, lp.rightMargin, lp.bottomMargin)
+}
+
+private fun recordInitialHeightForView(view: View): Int {
+    return view.layoutParams.height
 }
 
 fun View.requestApplyInsetsWhenAttached() {
