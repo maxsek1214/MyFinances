@@ -7,10 +7,10 @@ import com.m.sekoshin.myfinances.data.room.entity.CashTransactionEntity
 import kotlinx.coroutines.flow.Flow
 
 class CashTransactionRepository(
-        private val cashTransactionDao: CashTransactionDao,
-        private val sourceRecipientDao: SourceRecipientDao,
-        private val cashiersCheckDao: CashiersCheckDao,
-        private val flowOfFundDao: FlowOfFundDao
+    private val cashTransactionDao: CashTransactionDao,
+    private val sourceRecipientDao: SourceRecipientDao,
+    private val cashiersCheckDao: CashiersCheckDao,
+    private val flowOfFundDao: FlowOfFundDao
 ) {
 
     // Room executes all queries on a separate thread.

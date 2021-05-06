@@ -7,10 +7,11 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "goodCategories_table", indices = [Index(value = arrayOf("parent_id"))])
 data class GoodCategoryEntity(
-        @ColumnInfo(name = "categoryName")
-        var name: String,
-        @ColumnInfo(name = "parent_id", defaultValue = "-1")
-        var parent: Long) {
+    @ColumnInfo(name = "categoryName")
+    var name: String,
+    @ColumnInfo(name = "parent_id", defaultValue = "-1")
+    var parent: Long
+) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     var id: Long? = null

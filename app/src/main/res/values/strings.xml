@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Finances</string>
+    <string name="app_name" translatable="false">My Finances</string>
     <string name="fabAddOperationContentDescription">Add operation</string>
     <string name="menu_operations">Operations</string>
     <string name="menu_accounts">Accounts</string>
@@ -17,67 +17,82 @@
     <string name="account_type_card">Card</string>
 
     <!-- Card types -->
-    <string name="card_type_american_express">AMERICAN EXPRESS</string>
-    <string name="card_type_discover">DISCOVER</string>
-    <string name="card_type_google_wallet">GOOGLE WALLET</string>
-    <string name="card_type_jcb">JCB</string>
-    <string name="card_type_maestro">MAESTRO</string>
-    <string name="card_type_mastercard">MASTERCARD</string>
-    <string name="card_type_paypal">PAYPAL</string>
-    <string name="card_type_unionpay">UNIONPAY</string>
-    <string name="card_type_visa">VISA</string>
+    <string name="card_type_american_express" translatable="false">AMERICAN EXPRESS</string>
+    <string name="card_type_discover" translatable="false">DISCOVER</string>
+    <string name="card_type_google_wallet" translatable="false">GOOGLE WALLET</string>
+    <string name="card_type_jcb" translatable="false">JCB</string>
+    <string name="card_type_maestro" translatable="false">MAESTRO</string>
+    <string name="card_type_mastercard" translatable="false">MASTERCARD</string>
+    <string name="card_type_paypal" translatable="false">PAYPAL</string>
+    <string name="card_type_unionpay" translatable="false">UNIONPAY</string>
+    <string name="card_type_visa" translatable="false">VISA</string>
     <string name="card_type_yandex_money">YANDEX MONEY</string>
     <string name="card_type_mir">MIR</string>
 
     <!-- Transaction categories -->
     <!-- Income -->
-    <string name="transaction_category_start_balance">Начальный баланс</string>
-    <string name="transaction_category_salary">Зарплата</string>
-    <string name="transaction_category_prepayment">Аванс</string>
+    <string name="transaction_category_start_balance">Start balance</string>
+    <string name="transaction_category_salary">Salary</string>
+    <string name="transaction_category_prepayment">Prepayment</string>
 
     <!-- Expense -->
-    <string name="transaction_category_auto">Автомобиль</string>
-    <string name="transaction_category_gas_station">Заправка</string>
-    <string name="transaction_category_auto_service">Обслуживание автомобиля</string>
+    <string name="transaction_category_auto">Auto</string>
+    <string name="transaction_category_gas_station">Gas station</string>
+    <string name="transaction_category_auto_service">Auto service</string>
 
-    <string name="transaction_category_health_beauty">Здоровье и красота</string>
-    <string name="transaction_category_pharmacy">Аптека</string>
+    <string name="transaction_category_health_beauty">Health and beauty</string>
+    <string name="transaction_category_pharmacy">Pharmacy</string>
 
-    <string name="transaction_category_paymnets">Платежи</string>
-    <string name="transaction_category_mobile_banking">Мобильный банк</string>
-    <string name="transaction_category_repayment_on_credit">Погашение кредита</string>
-    <string name="transaction_category_commission">Комиссия</string>
-    <string name="transaction_category_public_services">Коммунальные платежи</string>
-    <string name="transaction_category_electric_power">Электроэнергия</string>
-    <string name="transaction_category_home_phone">Домашний телефон</string>
-    <string name="transaction_category_rent">Квартплата</string>
-    <string name="transaction_category_intercome">Домофон</string>
-    <string name="transaction_category_heating">Отопление</string>
-    <string name="transaction_category_communication_internet">Связь, интернет</string>
-    <string name="transaction_category_mobile">Мобильная связь</string>
-    <string name="transaction_category_wired_internet">Проводной интернет</string>
+    <string name="transaction_category_payments">Payments</string>
+    <string name="transaction_category_mobile_banking">Mobile banking</string>
+    <string name="transaction_category_repayment_on_credit">Repayment on credit</string>
+    <string name="transaction_category_commission">Commission</string>
+    <string name="transaction_category_public_services_payments">Public service payments</string>
+    <string name="transaction_category_electric_power">Electric power</string>
+    <string name="transaction_category_home_phone">Home phone</string>
+    <string name="transaction_category_rent">Rent</string>
+    <string name="transaction_category_intercom">Intercom</string>
+    <string name="transaction_category_heating">Heating</string>
+    <string name="transaction_category_communication_internet">Communication, internet</string>
+    <string name="transaction_category_mobile">Mobile</string>
+    <string name="transaction_category_wired_internet">Wired internet</string>
 
-    <string name="transaction_category_rest_entertainment">Отдых и развлечения</string>
-    <string name="transaction_category_cinema">Кино</string>
-    <string name="transaction_category_restaurant_cafe">Рестораны и кафе</string>
+    <string name="transaction_category_rest_and_entertainment">Rest and entertainment</string>
+    <string name="transaction_category_cinema">Cinema</string>
+    <string name="transaction_category_restaurant_and_cafe">Restaurant and cafe</string>
 
-    <string name="transaction_category_all_for_home">Все для дома</string>
+    <string name="transaction_category_all_for_home">All for home</string>
 
-    <string name="transaction_category_transport">Транспорт</string>
+    <string name="transaction_category_transport">Transport</string>
 
-    <string name="transaction_category_education">Образование</string>
+    <string name="transaction_category_education">Education</string>
 
-    <string name="transaction_category_clothes">Одежда и аксессуары</string>
+    <string name="transaction_category_clothes_and_accessories">Clothes and accessories</string>
 
-    <string name="transaction_category_supermarket">Супермаркет</string>
+    <string name="transaction_category_supermarket">Supermarket</string>
 
-    <string name="transaction_category_other">Прочие расходы</string>
+    <string name="transaction_category_other_expenses">Other expenses</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
 
-    <string name="splash_app_name">My Finances [v %s]</string>
+    <string name="splash_app_name" translatable="false">My Finances [v %s]</string>
     <string name="menu_bottomappbar_settings">Settings</string>
     <string name="menu_bottomappbar_transactions_filter">Filter</string>
+
+    <!-- Preference Titles -->
+    <string name="main_header">Main</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="theme_title">Default theme</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
 
 </resources>

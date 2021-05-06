@@ -1,6 +1,8 @@
 package com.m.sekoshin.myfinances
 
 import android.app.Application
+import android.content.Context
+import androidx.preference.PreferenceManager
 import com.m.sekoshin.myfinances.data.repository.*
 import com.m.sekoshin.myfinances.data.room.FinanceDB
 import kotlinx.coroutines.CoroutineScope
@@ -16,9 +18,24 @@ class FinApp : Application() {
     val accountTypeRep by lazy { AccountTypeRepository(database.accountTypeDao()) }
     val aliasRep by lazy { AliasRepository(database.aliasDao()) }
     val cashAccountRep by lazy { CashAccountRepository(database.cashAccountDao()) }
-    val cashTransactionRep by lazy { CashTransactionRepository(database.cashTransactionDao(), database.sourceRecipientDao(), database.cashiersCheckDao(), database.flowOfFundDao()) }
+    val cashTransactionRep by lazy {
+        CashTransactionRepository(
+            database.cashTransactionDao(),
+            database.sourceRecipientDao(),
+            database.cashiersCheckDao(),
+            database.flowOfFundDao()
+        )
+    }
     val goodCategoryRep by lazy { GoodCategoryRepository(database.goodCategoryDao()) }
     val issuerRep by lazy { IssuerRepository(database.issuerDao()) }
     val sourceRecipientRep by lazy { SourceRecipientRepository(database.sourceRecipientDao()) }
     val transactionCategoryRep by lazy { TransactionCategoryRepository(database.transactionCategoryDao()) }
+
+    lateinit var preferenceRepository: PreferenceRepository
+
+    override fun onCreate() {
+        super.onCreate()
+        preferenceRepository = PreferenceRepository(PreferenceManager.getDefaultSharedPreferences(this))
+    }
+
 }

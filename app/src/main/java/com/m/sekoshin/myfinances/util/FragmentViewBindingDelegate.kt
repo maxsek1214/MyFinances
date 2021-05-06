@@ -14,8 +14,8 @@ import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
 class FragmentViewBindingDelegate<T : ViewBinding>(
-        val fragment: Fragment,
-        val viewBindingFactory: (View) -> T
+    val fragment: Fragment,
+    val viewBindingFactory: (View) -> T
 ) : ReadOnlyProperty<Fragment, T> {
     private var binding: T? = null
 
@@ -33,13 +33,13 @@ class FragmentViewBindingDelegate<T : ViewBinding>(
 
             override fun onCreate(owner: LifecycleOwner) {
                 fragment.viewLifecycleOwnerLiveData.observeForever(
-                        viewLifecycleOwnerLiveDateObserver
+                    viewLifecycleOwnerLiveDateObserver
                 )
             }
 
             override fun onDestroy(owner: LifecycleOwner) {
                 fragment.viewLifecycleOwnerLiveData.removeObserver(
-                        viewLifecycleOwnerLiveDateObserver
+                    viewLifecycleOwnerLiveDateObserver
                 )
             }
         })
@@ -61,8 +61,9 @@ class FragmentViewBindingDelegate<T : ViewBinding>(
 }
 
 fun <T : ViewBinding> Fragment.viewBinding(viewBindingFactory: (View) -> T) =
-        FragmentViewBindingDelegate(this, viewBindingFactory)
+    FragmentViewBindingDelegate(this, viewBindingFactory)
 
-inline fun <T : ViewBinding> AppCompatActivity.viewBinding(crossinline bindingInflater: (LayoutInflater) -> T) = lazy(LazyThreadSafetyMode.NONE) {
-    bindingInflater.invoke(layoutInflater)
-}
+inline fun <T : ViewBinding> AppCompatActivity.viewBinding(crossinline bindingInflater: (LayoutInflater) -> T) =
+    lazy(LazyThreadSafetyMode.NONE) {
+        bindingInflater.invoke(layoutInflater)
+    }

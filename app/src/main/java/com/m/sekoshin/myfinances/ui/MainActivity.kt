@@ -11,25 +11,21 @@ import android.widget.Toast
 import androidx.annotation.MenuRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import com.google.android.material.navigation.NavigationView
+import com.m.sekoshin.myfinances.FinApp
 import com.m.sekoshin.myfinances.R
 import com.m.sekoshin.myfinances.databinding.ActivityMainBinding
 import com.m.sekoshin.myfinances.ui.nav.BottomNavigationDrawerFragment
 import com.m.sekoshin.myfinances.ui.nav.ChangeSettingsMenuStateAction
 import com.m.sekoshin.myfinances.util.contentView
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedListener,
-        NavigationView.OnNavigationItemSelectedListener, Toolbar.OnMenuItemClickListener {
+    NavigationView.OnNavigationItemSelectedListener, Toolbar.OnMenuItemClickListener {
 
-    private val TAG = "DEBUG: " + javaClass.simpleName
+    private val TAG by lazy {"DEBUG: " + javaClass.simpleName}
 
 //    private val _menuState = MutableStateFlow(true)
 //    private val menuState: StateFlow<Boolean>
@@ -43,6 +39,12 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d(TAG, "onCreate")
+        binding.run {
+            // Wrap binding.run to ensure ContentViewBindingDelegate is calling this Activity's
+            // setContentView before accessing views
+            getNavigation().addOnDestinationChangedListener(this@MainActivity)
+        }
 
         binding.bottomAppBar.apply {
             setNavigationOnClickListener {
@@ -70,7 +72,7 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
                         } else {
                             bottomAppBar.setNavigationIcon(R.drawable.avd_pathmorph_drawer_arrow_to_hamburger)
                             fabAdd.show()
-                            bottomAppBar.replaceMenu(R.menu.bottomappbar_transactions_menu)//getBottomAppBarMenuForDestination())
+                            bottomAppBar.replaceMenu(getBottomAppBarMenuForDestination())
                             (bottomAppBar.navigationIcon as AnimatedVectorDrawable).start()
                         }
                     }
@@ -79,21 +81,21 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
             addNavigationListener(this@MainActivity)
         }
 
-        binding.run {
-            findNavController(R.id.nav_fragment).addOnDestinationChangedListener(this@MainActivity)
-        }
-
 //        lifecycleScope.launch {
 //            menuState.collect {
 //
 //            }
 //        }
+        (application as FinApp).preferenceRepository.themeModeLive.observe(this) { themeMode ->
+            Toast.makeText(this, "ThemeMode = $themeMode", Toast.LENGTH_SHORT).show()
+            themeMode?.let { delegate.localNightMode = it }
+        }
     }
 
     override fun onDestinationChanged(
-            controller: NavController,
-            destination: NavDestination,
-            arguments: Bundle?
+        controller: NavController,
+        destination: NavDestination,
+        arguments: Bundle?
     ) {
         when (destination.id) {
             R.id.transactionsFragment -> {
@@ -102,8 +104,10 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
                 Log.d(TAG, "starting transactionsFragment")
             }
             R.id.splashFragment -> {
-//                hideBottomAppBar()
                 Log.d(TAG, "starting splashFragment")
+            }
+            R.id.settingsFragment -> {
+                Log.d(TAG, "starting settingsFragment")
             }
         }
     }
@@ -111,39 +115,39 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_accounts -> Toast.makeText(
-                    this,
-                    getString(R.string.menu_accounts),
-                    Toast.LENGTH_SHORT
+                this,
+                getString(R.string.menu_accounts),
+                Toast.LENGTH_SHORT
             ).show()
             R.id.menu_operations -> Toast.makeText(
-                    this,
-                    getString(R.string.menu_operations),
-                    Toast.LENGTH_SHORT
+                this,
+                getString(R.string.menu_operations),
+                Toast.LENGTH_SHORT
             ).show()
             R.id.menu_users -> Toast.makeText(
-                    this,
-                    getString(R.string.menu_users),
-                    Toast.LENGTH_SHORT
+                this,
+                getString(R.string.menu_users),
+                Toast.LENGTH_SHORT
             ).show()
             R.id.menu_categories -> Toast.makeText(
-                    this,
-                    getString(R.string.menu_categories),
-                    Toast.LENGTH_SHORT
+                this,
+                getString(R.string.menu_categories),
+                Toast.LENGTH_SHORT
             ).show()
             R.id.menu_recipients -> Toast.makeText(
-                    this,
-                    getString(R.string.menu_recipients),
-                    Toast.LENGTH_SHORT
+                this,
+                getString(R.string.menu_recipients),
+                Toast.LENGTH_SHORT
             ).show()
             R.id.menu_receipts -> Toast.makeText(
-                    this,
-                    getString(R.string.menu_receipts),
-                    Toast.LENGTH_SHORT
+                this,
+                getString(R.string.menu_receipts),
+                Toast.LENGTH_SHORT
             ).show()
             R.id.menu_analytics -> Toast.makeText(
-                    this,
-                    getString(R.string.menu_analytics),
-                    Toast.LENGTH_SHORT
+                this,
+                getString(R.string.menu_analytics),
+                Toast.LENGTH_SHORT
             ).show()
         }
         return true
@@ -151,16 +155,17 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
 
     private fun showBottomAppBar() {
         binding.run {
+            bottomAppBar.setNavigationIcon(R.drawable.avd_pathmorph_drawer_arrow_to_hamburger)
             bottomAppBar.visibility = View.VISIBLE
             bottomAppBar.performShow()
             fabAdd.show()
+            (bottomAppBar.navigationIcon as AnimatedVectorDrawable).start()
         }
     }
 
     private fun hideBottomAppBar() {
         binding.run {
-//            fabAdd.hide()
-            bottomAppBar.performHide();
+            bottomAppBar.performHide()
             // Get a handle on the animator that hides the bottom app bar so we can wait to hide
             // the fab and bottom app bar until after it's exit animation finishes.
             bottomAppBar.animate().setListener(object : AnimatorListenerAdapter() {
@@ -180,10 +185,14 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         }
     }
 
+    private fun getNavigation(): NavController {
+        return findNavController(R.id.nav_fragment)
+    }
+
     @MenuRes
     private fun getBottomAppBarMenuForDestination(destination: NavDestination? = null): Int {
         val dest = destination
-                ?: findNavController(R.id.nav_host_fragment_container).currentDestination
+            ?: getNavigation().currentDestination
         return when (dest?.id) {
             R.id.transactionsFragment -> R.menu.bottomappbar_transactions_menu
             else -> R.menu.bottomappbar_transactions_menu
@@ -192,8 +201,21 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
 
     override fun onMenuItemClick(item: MenuItem?): Boolean {
         when (item?.itemId) {
-            R.id.menu_bottomappbar_settings -> Toast.makeText(this@MainActivity, getString(R.string.menu_bottomappbar_settings), Toast.LENGTH_SHORT).show()
-            R.id.menu_bottomappbar_transactions_filter -> Toast.makeText(this@MainActivity, getString(R.string.menu_bottomappbar_transactions_filter), Toast.LENGTH_SHORT).show()
+            R.id.menu_bottomappbar_settings -> {
+                Toast.makeText(
+                    this@MainActivity,
+                    getString(R.string.menu_bottomappbar_settings),
+                    Toast.LENGTH_SHORT
+                ).show()
+                bottomNavDrawer.close()
+                hideBottomAppBar()
+                getNavigation().navigate(R.id.action_transactionsFragment_to_settingsFragment)
+            }
+            R.id.menu_bottomappbar_transactions_filter -> Toast.makeText(
+                this@MainActivity,
+                getString(R.string.menu_bottomappbar_transactions_filter),
+                Toast.LENGTH_SHORT
+            ).show()
         }
         return true
     }

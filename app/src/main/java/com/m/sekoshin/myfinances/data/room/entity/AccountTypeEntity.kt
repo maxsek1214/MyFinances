@@ -6,12 +6,13 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "accountTypes_table")
 data class AccountTypeEntity(
-        @ColumnInfo(name = "typeName")
-        var name: String,
-        @ColumnInfo(name = "isTypeCash")
-        var isCash: Boolean,
-        @ColumnInfo(name = "isTypeCard")
-        var isCard: Boolean) {
+    @ColumnInfo(name = "typeName")
+    var name: String,
+    @ColumnInfo(name = "isTypeCash")
+    var isCash: Boolean,
+    @ColumnInfo(name = "isTypeCard")
+    var isCard: Boolean
+) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     var id: Long? = null

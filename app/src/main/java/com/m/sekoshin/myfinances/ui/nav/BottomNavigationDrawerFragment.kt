@@ -6,8 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.activity.OnBackPressedCallback
-import androidx.core.view.marginTop
-import androidx.core.view.updatePadding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.*
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -15,11 +13,13 @@ import com.google.android.material.navigation.NavigationView
 import com.m.sekoshin.myfinances.R
 import com.m.sekoshin.myfinances.databinding.FragmentBottomNavigationDrawerBinding
 
-class BottomNavigationDrawerFragment() : BottomSheetDialogFragment() {
+import kotlin.LazyThreadSafetyMode.NONE
+
+class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
 
     private lateinit var binding: FragmentBottomNavigationDrawerBinding
 
-    private val behavior: BottomSheetBehavior<FrameLayout> by lazy(LazyThreadSafetyMode.NONE) {
+    private val behavior: BottomSheetBehavior<FrameLayout> by lazy(NONE) {
         from(binding.navBottomSheet)
     }
 
@@ -37,17 +37,17 @@ class BottomNavigationDrawerFragment() : BottomSheetDialogFragment() {
     }
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         binding = FragmentBottomNavigationDrawerBinding.inflate(inflater, container, false)
         binding.navigationView.setOnApplyWindowInsetsListener { view, windowInsets ->
             // Record the window's top inset so it can be applied when the bottom sheet is slide up
             // to meet the top edge of the screen.
             view.setTag(
-                    R.id.tag_system_window_inset_top,
-                    windowInsets.systemWindowInsetTop
+                R.id.tag_system_window_inset_top,
+                windowInsets.systemWindowInsetTop
             )
             windowInsets
         }
@@ -57,6 +57,7 @@ class BottomNavigationDrawerFragment() : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.run {
+
             bottomSheetCallback.apply {
                 // If the drawer is open, pressing the system back button should close the drawer.
                 addOnStateChangedAction(object : OnStateChangedAction {
@@ -87,6 +88,12 @@ class BottomNavigationDrawerFragment() : BottomSheetDialogFragment() {
             STATE_HALF_EXPANDED,
             STATE_EXPANDED,
             STATE_COLLAPSED -> close()
+            STATE_DRAGGING -> {
+                TODO()
+            }
+            STATE_SETTLING -> {
+                TODO()
+            }
         }
     }
 

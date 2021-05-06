@@ -11,7 +11,8 @@ class CardTypeListViewModel(private val repository: CardTypeRepository) : ViewMo
     val allCardTypes: LiveData<List<CardTypeEntity>> = repository.allCardTypes.asLiveData()
 }
 
-class CardTypeListViewModelFactory(private val repository: CardTypeRepository) : ViewModelProvider.Factory {
+class CardTypeListViewModelFactory(private val repository: CardTypeRepository) :
+    ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(CardTypeListViewModel::class.java)) {
             return CardTypeListViewModel(repository) as T

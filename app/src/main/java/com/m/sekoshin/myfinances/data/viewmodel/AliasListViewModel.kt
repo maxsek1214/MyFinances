@@ -11,7 +11,8 @@ class AliasListViewModel(private val repository: AliasRepository) : ViewModel() 
     val allAliases: LiveData<List<AliasEntity>> = repository.allAliases.asLiveData()
 }
 
-class AliasListViewModelFactory(private val repository: AliasRepository) : ViewModelProvider.Factory {
+class AliasListViewModelFactory(private val repository: AliasRepository) :
+    ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(AliasListViewModel::class.java)) {
             return AliasListViewModel(repository) as T

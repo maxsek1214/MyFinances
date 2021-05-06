@@ -30,7 +30,7 @@ interface OnStateChangedAction {
  * used.
  */
 class ChangeSettingsMenuStateAction(
-        private val onShouldShowSettingsMenu: (showSettings: Boolean) -> Unit
+    private val onShouldShowSettingsMenu: (showSettings: Boolean) -> Unit
 ) : OnStateChangedAction {
 
     private var hasCalledShowSettingsMenu: Boolean = false

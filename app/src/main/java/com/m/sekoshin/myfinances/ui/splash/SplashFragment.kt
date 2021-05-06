@@ -3,10 +3,7 @@ package com.m.sekoshin.myfinances.ui.splash
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment.findNavController
@@ -21,7 +18,7 @@ import kotlinx.coroutines.launch
 
 class SplashFragment : Fragment(R.layout.fragment_splash) {
 
-    private val TAG = "DEBUG: " + javaClass.simpleName
+    private val TAG by lazy{"DEBUG: " + javaClass.simpleName}
 
     private val binding by viewBinding(FragmentSplashBinding::bind)
 
@@ -29,11 +26,8 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d(TAG, "onViewCreated")
         dbState = (activity?.application as FinApp).database.getDBState()
-
-        lifecycleScope.launch {
-            (activity?.application as FinApp).database.accountTypeDao().getAccountTypes().count()
-        }
 
         lifecycleScope.launchWhenCreated {
 //            (activity?.application as FinApp).database.accountTypeDao().getAccountTypes().count()
@@ -44,10 +38,14 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
                         context.let {
                             findNavController(this@SplashFragment).navigate(R.id.action_splashFragment_to_transactionsFragment)
                         }
-                    }, 5000)
+                    }, 1000)
                 } else Log.d(TAG, "DB is not created [collect: $it]")
             }
         }
         binding.executePendingBindings()
+
+        lifecycleScope.launchWhenStarted {
+            (activity?.application as FinApp).database.accountTypeDao().getAccountTypes().count()
+        }
     }
 }

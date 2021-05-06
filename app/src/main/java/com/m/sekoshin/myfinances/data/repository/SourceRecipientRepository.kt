@@ -9,7 +9,8 @@ class SourceRecipientRepository(private val sourceRecipientDao: SourceRecipientD
 
     // Room executes all queries on a separate thread.
     // Observed Flow will notify the observer when the data has changed.
-    val allSourceRecipients: Flow<List<SourceRecipientEntity>> = sourceRecipientDao.getSourceRecipients()
+    val allSourceRecipients: Flow<List<SourceRecipientEntity>> =
+        sourceRecipientDao.getSourceRecipients()
 
     // By default Room runs suspend queries off the main thread, therefore, we don't need to
     // implement anything else to ensure we're not doing long running database work

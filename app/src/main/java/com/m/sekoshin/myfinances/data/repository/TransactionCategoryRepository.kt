@@ -10,7 +10,8 @@ class TransactionCategoryRepository(private val transactionCategoryDao: Transact
 
     // Room executes all queries on a separate thread.
     // Observed Flow will notify the observer when the data has changed.
-    val allTransactionCategories: Flow<List<TransactionCategory>> = transactionCategoryDao.getTransactionCategories()
+    val allTransactionCategories: Flow<List<TransactionCategory>> =
+        transactionCategoryDao.getTransactionCategories()
 
     // By default Room runs suspend queries off the main thread, therefore, we don't need to
     // implement anything else to ensure we're not doing long running database work

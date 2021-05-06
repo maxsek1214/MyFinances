@@ -11,7 +11,8 @@ class AccountTypeListViewModel(private val repository: AccountTypeRepository) : 
     val allAccountTypes: LiveData<List<AccountTypeEntity>> = repository.allAccountTypes.asLiveData()
 }
 
-class AccountTypeListViewModelFactory(private val repository: AccountTypeRepository) : ViewModelProvider.Factory {
+class AccountTypeListViewModelFactory(private val repository: AccountTypeRepository) :
+    ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(AccountTypeListViewModel::class.java)) {
             return AccountTypeListViewModel(repository) as T

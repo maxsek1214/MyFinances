@@ -40,5 +40,5 @@ class ContentViewBindingDelegate<in R : AppCompatActivity, out T : ViewDataBindi
 }
 
 fun <R : AppCompatActivity, T : ViewDataBinding> contentView(
-        @LayoutRes layoutRes: Int
+    @LayoutRes layoutRes: Int
 ): ContentViewBindingDelegate<R, T> = ContentViewBindingDelegate(layoutRes)

@@ -1,21 +1,31 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Theme.MyFinances" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/black</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
-        <item name="colorOnSecondary">@color/black</item>
+    <style name="Theme.MyFinances" parent="Base.Theme.MyFinances">
+        <!--Material color attributes (dark theme) -->
+        <!--colorPrimary colors map to components and elements, such as app bars and buttons. -->
+        <!--colorSecondary colors are most often used as accents on components, such as FABs and -->
+        <!--selection controls.-->
+        <item name="colorPrimary">@color/material_color_blue_grey_200</item>
+        <item name="colorPrimaryVariant">@color/material_color_blue_grey_300</item>
+        <item name="colorSecondary">@color/material_color_cyan_200</item>
+        <item name="colorSecondaryVariant">@color/material_color_cyan_300</item>
+        <!--colorBackground appears behind scrollable content and is used for the default window-->
+        <!--background. colorSurface is mapped to the surface of components such as cards, sheets-->
+        <!--and menus. colorError is used to indicate an error state for components such as-->
+        <!--text fields.-->
+        <item name="android:colorBackground">@color/material_color_black</item>
+        <item name="colorSurface">@color/material_color_black</item>
+        <item name="colorError">@color/material_color_red_200</item>
+        <!--"On" colors define how text, icons and strokes are colored in relation to the surface-->
+        <!--on which they appear.-->
+        <item name="colorOnPrimary">@color/material_color_black</item>
+        <item name="colorOnSecondary">@color/material_color_black</item>
+        <item name="colorOnBackground">@color/material_color_black</item>
+        <item name="colorOnSurface">@color/material_color_white</item>
+        <item name="colorOnError">@color/material_color_white</item>
+
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="ThemeOverlay.MyFinancies.FullscreenContainer" parent="">
-        <item name="fullscreenBackgroundColor">@color/light_blue_900</item>
-        <item name="fullscreenTextColor">@color/light_blue_A400</item>
-    </style>
 </resources>

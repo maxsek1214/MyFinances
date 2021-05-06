@@ -6,8 +6,9 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "sourceRecipients_table")
 data class SourceRecipientEntity(
-        @ColumnInfo(name = "sourceRecipientName")
-        var name: String) {
+    @ColumnInfo(name = "sourceRecipientName")
+    var name: String
+) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     var id: Long? = null

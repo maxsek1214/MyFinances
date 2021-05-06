@@ -1,39 +1,68 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.MyFinances" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryVariant">@color/primary_dark</item>
+    <style name="Theme.MyFinances" parent="Base.Theme.MyFinances"/>
+
+    <style name="Base.Theme.MyFinances" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!--Material color attributes (light theme) -->
+        <!--colorPrimary colors map to components and elements, such as app bars and buttons. -->
+        <!--colorSecondary colors are most often used as accents on components, such as FABs and -->
+        <!--selection controls.-->
+        <item name="colorPrimary">@color/material_color_blue_grey_700</item>
+        <item name="colorPrimaryVariant">@color/material_color_blue_grey_900</item>
+        <item name="colorSecondary">@color/material_color_cyan_accent_200</item>
+        <item name="colorSecondaryVariant">@color/material_color_cyan_accent_700</item>
+        <!--colorBackground appears behind scrollable content and is used for the default window-->
+        <!--background. colorSurface is mapped to the surface of components such as cards, sheets-->
+        <!--and menus. colorError is used to indicate an error state for components such as-->
+        <!--text fields.-->
+        <item name="android:colorBackground">@color/material_color_white</item>
+        <item name="colorSurface">@color/material_color_white</item>
+        <item name="colorError">@color/material_color_red_600</item>
+        <!--"On" colors define how text, icons and strokes are colored in relation to the surface-->
+        <!--on which they appear.-->
+        <item name="colorOnPrimary">@color/material_color_white</item>
+        <item name="colorOnSecondary">@color/material_color_black</item>
+        <item name="colorOnBackground">@color/material_color_black</item>
+        <item name="colorOnSurface">@color/material_color_black</item>
+        <item name="colorOnError">@color/material_color_white</item>
+
+        <item name="colorPrimarySurfaceVariant">@color/material_color_blue_grey_50</item>
+        <!--Material shape attributes-->
+
+        <!--Component styles-->
+        <item name="bottomAppBarStyle">@style/Widget.MaterialComponents.BottomAppBar.PrimarySurface</item>
+        <item name="bottomSheetStyle">@style/Widget.MaterialComponents.BottomSheet.Modal</item>
+        <item name="navigationViewStyle">@style/Widget.MyFinances.NavigationView</item>
+
+        <!--
         <item name="colorPrimaryDark">@color/primary_dark</item>
-        <item name="colorOnPrimary">@color/primary_text</item>
         <item name="android:textColorPrimary">@color/primary_text</item>
-        <!--        <item name="colorPrimary">@color/purple_500</item>-->
-        <!--        <item name="colorPrimaryVariant">@color/purple_700</item>-->
-        <!--        <item name="colorOnPrimary">@color/white</item>-->
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/secondary</item>
-        <item name="colorSecondaryVariant">@color/secondary_dark</item>
-        <item name="colorOnSecondary">@color/secondary_text</item>
+        <item name="colorOnPrimarySurface">@color/secondary_text</item>
         <item name="android:textColorSecondary">@color/secondary_text</item>
-        <!--        <item name="colorSecondary">@color/teal_200</item>-->
-        <!--        <item name="colorSecondaryVariant">@color/teal_700</item>-->
-        <!--        <item name="colorOnSecondary">@color/black</item>-->
+        <item name="textAppearanceListItem">@style/TextAppearance.MyFinances.Body2</item>
+        -->
+
+        <!--Material shape attributes-->
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.MyFinances.LargeComponent</item>
+
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
-    </style>
-
-    <style name="ThemeOverlay.MyFinancies.FullscreenContainer" parent="">
-        <item name="fullscreenBackgroundColor">@color/light_blue_600</item>
-        <item name="fullscreenTextColor">@color/light_blue_A200</item>
-    </style>
-
-    <style name="Theme.MyFinances.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+
+        <!-- Customize your theme here. -->
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
     </style>
 
     <style name="Theme.MyFinances.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.MyFinances.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="Theme.MyFinances.PreferenceTheme" parent="PreferenceThemeOverlay">
+        <item name="preferenceCategoryTitleTextAppearance">@style/TextAppearance.MyFinances.Body2</item>
+    </style>
+
+    <style name="Theme.MyFinances.BottomSheetDialog" parent="Widget.MaterialComponents.BottomSheet">
+        <item name="bottomSheetStyle">@style/Widget.MyFinances.BottomSheet.Modal</item>
+    </style>
 </resources>

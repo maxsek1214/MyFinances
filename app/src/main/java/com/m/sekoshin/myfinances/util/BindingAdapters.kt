@@ -13,10 +13,12 @@ import com.google.android.material.elevation.ElevationOverlayProvider
 
 @BindingAdapter("popupElevationOverlay")
 fun Spinner.bindPopupElevationOverlay(popupElevationOverlay: Float) {
-    setPopupBackgroundDrawable(ColorDrawable(
+    setPopupBackgroundDrawable(
+        ColorDrawable(
             ElevationOverlayProvider(context)
-                    .compositeOverlayWithThemeSurfaceColorIfNeeded(popupElevationOverlay)
-    ))
+                .compositeOverlayWithThemeSurfaceColorIfNeeded(popupElevationOverlay)
+        )
+    )
 }
 
 @BindingAdapter("goneIf")
@@ -36,7 +38,7 @@ fun View.bindGoneIf(gone: Boolean) {
 fun View.bindElevationOverlay(previousElevation: Float, elevation: Float) {
     if (previousElevation == elevation) return
     val color = ElevationOverlayProvider(context)
-            .compositeOverlayWithThemeSurfaceColorIfNeeded(elevation)
+        .compositeOverlayWithThemeSurfaceColorIfNeeded(elevation)
     setBackgroundColor(color)
 }
 
@@ -54,26 +56,26 @@ fun View.bindLayoutFullscreen(previousFullscreen: Boolean, fullscreen: Boolean) 
 
 
 @BindingAdapter(
-        "paddingLeftSystemWindowInsets",
-        "paddingTopSystemWindowInsets",
-        "paddingRightSystemWindowInsets",
-        "paddingBottomSystemWindowInsets",
-        requireAll = false
+    "paddingLeftSystemWindowInsets",
+    "paddingTopSystemWindowInsets",
+    "paddingRightSystemWindowInsets",
+    "paddingBottomSystemWindowInsets",
+    requireAll = false
 )
 fun View.applySystemWindowInsetsPadding(
-        previousApplyLeft: Boolean,
-        previousApplyTop: Boolean,
-        previousApplyRight: Boolean,
-        previousApplyBottom: Boolean,
-        applyLeft: Boolean,
-        applyTop: Boolean,
-        applyRight: Boolean,
-        applyBottom: Boolean
+    previousApplyLeft: Boolean,
+    previousApplyTop: Boolean,
+    previousApplyRight: Boolean,
+    previousApplyBottom: Boolean,
+    applyLeft: Boolean,
+    applyTop: Boolean,
+    applyRight: Boolean,
+    applyBottom: Boolean
 ) {
     if (previousApplyLeft == applyLeft &&
-            previousApplyTop == applyTop &&
-            previousApplyRight == applyRight &&
-            previousApplyBottom == applyBottom
+        previousApplyTop == applyTop &&
+        previousApplyRight == applyRight &&
+        previousApplyBottom == applyBottom
     ) {
         return
     }
@@ -85,35 +87,35 @@ fun View.applySystemWindowInsetsPadding(
         val bottom = if (applyBottom) insets.systemWindowInsetBottom else 0
 
         view.setPadding(
-                padding.left + left,
-                padding.top + top,
-                padding.right + right,
-                padding.bottom + bottom
+            padding.left + left,
+            padding.top + top,
+            padding.right + right,
+            padding.bottom + bottom
         )
     }
 }
 
 @BindingAdapter(
-        "marginLeftSystemWindowInsets",
-        "marginTopSystemWindowInsets",
-        "marginRightSystemWindowInsets",
-        "marginBottomSystemWindowInsets",
-        requireAll = false
+    "marginLeftSystemWindowInsets",
+    "marginTopSystemWindowInsets",
+    "marginRightSystemWindowInsets",
+    "marginBottomSystemWindowInsets",
+    requireAll = false
 )
 fun View.applySystemWindowInsetsMargin(
-        previousApplyLeft: Boolean,
-        previousApplyTop: Boolean,
-        previousApplyRight: Boolean,
-        previousApplyBottom: Boolean,
-        applyLeft: Boolean,
-        applyTop: Boolean,
-        applyRight: Boolean,
-        applyBottom: Boolean
+    previousApplyLeft: Boolean,
+    previousApplyTop: Boolean,
+    previousApplyRight: Boolean,
+    previousApplyBottom: Boolean,
+    applyLeft: Boolean,
+    applyTop: Boolean,
+    applyRight: Boolean,
+    applyBottom: Boolean
 ) {
     if (previousApplyLeft == applyLeft &&
-            previousApplyTop == applyTop &&
-            previousApplyRight == applyRight &&
-            previousApplyBottom == applyBottom
+        previousApplyTop == applyTop &&
+        previousApplyRight == applyRight &&
+        previousApplyBottom == applyBottom
     ) {
         return
     }
@@ -134,7 +136,7 @@ fun View.applySystemWindowInsetsMargin(
 }
 
 fun View.doOnApplyWindowInsets(
-        block: (View, WindowInsets, InitialPadding, InitialMargin, Int) -> Unit
+    block: (View, WindowInsets, InitialPadding, InitialMargin, Int) -> Unit
 ) {
     // Create a snapshot of the view's padding & margin states
     val initialPadding = recordInitialPaddingForView(this)
@@ -156,12 +158,12 @@ class InitialPadding(val left: Int, val top: Int, val right: Int, val bottom: In
 class InitialMargin(val left: Int, val top: Int, val right: Int, val bottom: Int)
 
 private fun recordInitialPaddingForView(view: View) = InitialPadding(
-        view.paddingLeft, view.paddingTop, view.paddingRight, view.paddingBottom
+    view.paddingLeft, view.paddingTop, view.paddingRight, view.paddingBottom
 )
 
 private fun recordInitialMarginForView(view: View): InitialMargin {
     val lp = view.layoutParams as? ViewGroup.MarginLayoutParams
-            ?: throw IllegalArgumentException("Invalid view layout params")
+        ?: throw IllegalArgumentException("Invalid view layout params")
     return InitialMargin(lp.leftMargin, lp.topMargin, lp.rightMargin, lp.bottomMargin)
 }
 

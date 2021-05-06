@@ -27,18 +27,18 @@ import com.m.sekoshin.myfinances.R
 interface OnSlideAction {
     /**
      * Called when the bottom sheet's [slideOffset] is changed. [slideOffset] will always be a
-     * value between -1.0 and 1.0. -1.0 is equal to [BottomSheetBehavior.STATE_HIDDEN], 0.0
-     * is equal to [BottomSheetBehavior.STATE_HALF_EXPANDED] and 1.0 is equal to
-     * [BottomSheetBehavior.STATE_EXPANDED].
+     * value between -1.0 and 1.0. -1.0 is equal to [com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_HIDDEN], 0.0
+     * is equal to [com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_HALF_EXPANDED] and 1.0 is equal to
+     * [com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_EXPANDED].
      */
     fun onSlide(
-            sheet: View,
-            @FloatRange(
-                    from = -1.0,
-                    fromInclusive = true,
-                    to = 1.0,
-                    toInclusive = true
-            ) slideOffset: Float
+        sheet: View,
+        @FloatRange(
+            from = -1.0,
+            fromInclusive = true,
+            to = 1.0,
+            toInclusive = true
+        ) slideOffset: Float
     )
 }
 

@@ -1,7 +1,26 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="Widget.Theme.MyFinancies.ButtonBar.Fullscreen" parent="">
-        <item name="android:background">@color/black_overlay</item>
-        <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
+    <style name="Widget.MyFinances.NavigationView" parent="Widget.MaterialComponents.NavigationView">
+        <!--Remove any scrim insets applied by NavigationView for system bars-->
+<!--        <item name="insetForeground">@android:color/transparent</item>-->
+        <item name="insetForeground">@android:color/transparent</item>
+        <!--Set the background color of NavigationView-->
+<!--        <item name="android:background">@android:color/transparent</item>-->
+        <item name="android:background">@color/material_color_white_20_percent</item>
+        <item name="elevation">0dp</item>
+        <item name="itemTextAppearance">?attr/textAppearanceBody2</item>
+        <item name="itemTextColor">?attr/colorOnSurface</item>
+        <item name="itemIconTint">?attr/colorSecondary</item>
     </style>
+
+    <style name="Widget.MyFinances.BottomSheet.Modal" parent="Widget.MaterialComponents.BottomSheet.Modal">
+        <item name="shapeAppearanceOverlay">?attr/shapeAppearanceLargeComponent</item>
+    </style>
+    
+    <style name="TextAppearance.MyFinances.Body2" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textColor">@color/material_color_black</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+
 </resources>

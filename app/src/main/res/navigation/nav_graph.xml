@@ -20,5 +20,13 @@
         android:id="@+id/transactionsFragment"
         android:name="com.m.sekoshin.myfinances.ui.transactions.TransactionsFragment"
         android:label="fragment_transactions"
-        tools:layout="@layout/fragment_transactions" />
+        tools:layout="@layout/fragment_transactions">
+        <action
+            android:id="@+id/action_transactionsFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.m.sekoshin.myfinances.ui.settings.SettingsFragment"
+        android:label="SettingsFragment" />
 </navigation>

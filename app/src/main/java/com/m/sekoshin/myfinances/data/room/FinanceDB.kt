@@ -2,9 +2,6 @@ package com.m.sekoshin.myfinances.data.room
 
 import android.content.Context
 import android.util.Log
-import android.widget.Toast
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -16,17 +13,17 @@ import com.m.sekoshin.myfinances.data.room.dao.*
 import com.m.sekoshin.myfinances.data.room.entity.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 @Database(
-        entities = [AccountTypeEntity::class, AliasEntity::class, CardTypeEntity::class,
-            CashAccountEntity::class, CashiersCheckEntity::class, CashTransactionEntity::class,
-            FlowOfFundEntity::class, GoodEntity::class, GoodCategoryEntity::class, IssuerEntity::class,
-            PurchaseEntity::class, SourceRecipientEntity::class, StoreEntity::class,
-            TransactionCategoryEntity::class], version = 1, exportSchema = false
+    entities = [AccountTypeEntity::class, AliasEntity::class, CardTypeEntity::class,
+        CashAccountEntity::class, CashiersCheckEntity::class, CashTransactionEntity::class,
+        FlowOfFundEntity::class, GoodEntity::class, GoodCategoryEntity::class, IssuerEntity::class,
+        PurchaseEntity::class, SourceRecipientEntity::class, StoreEntity::class,
+        TransactionCategoryEntity::class], version = 1, exportSchema = true
 )
 @TypeConverters(Converters::class)
 abstract class FinanceDB : RoomDatabase() {
@@ -56,7 +53,7 @@ abstract class FinanceDB : RoomDatabase() {
 
     companion object {
 
-        private val TAG = "DEBUG: " + javaClass.simpleName
+        private val TAG by lazy {"DEBUG: " + FinanceDB::class.java.simpleName}
 
         private val msfDBState = MutableStateFlow(false)
 
@@ -71,14 +68,14 @@ abstract class FinanceDB : RoomDatabase() {
             Log.d(TAG, "building DB [${msfDBState.value}]")
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
-                        context.applicationContext,
-                        FinanceDB::class.java,
-                        DATABASE_NAME
+                    context.applicationContext,
+                    FinanceDB::class.java,
+                    DATABASE_NAME
                 )
-                        // Wipes and rebuilds instead of migrating if no Migration object.
-                        .fallbackToDestructiveMigration()
-                        .addCallback(DatabaseCallback(scope, context))
-                        .build()
+                    // Wipes and rebuilds instead of migrating if no Migration object.
+                    .fallbackToDestructiveMigration()
+                    .addCallback(DatabaseCallback(scope, context))
+                    .build()
                 INSTANCE = instance
                 // return instance
                 instance
@@ -86,8 +83,8 @@ abstract class FinanceDB : RoomDatabase() {
         }
 
         private class DatabaseCallback(
-                private val scope: CoroutineScope,
-                private val context: Context
+            private val scope: CoroutineScope,
+            private val context: Context
         ) : RoomDatabase.Callback() {
             /**
              * Override the onCreate method to populate the database.
@@ -111,247 +108,247 @@ abstract class FinanceDB : RoomDatabase() {
                 database.run {
                     Log.d(TAG, "building DB [populateDatabase]")
                     accountTypeDao().insertAll(
-                            listOf(
-                                    AccountTypeEntity(
-                                            context.getString(R.string.account_type_cash),
-                                            true,
-                                            false
-                                    ),
-                                    AccountTypeEntity(
-                                            context.getString(R.string.account_type_bank),
-                                            false,
-                                            false
-                                    ),
-                                    AccountTypeEntity(
-                                            context.getString(R.string.account_type_card),
-                                            false,
-                                            true
-                                    )
+                        listOf(
+                            AccountTypeEntity(
+                                context.getString(R.string.account_type_cash),
+                                true,
+                                false
+                            ),
+                            AccountTypeEntity(
+                                context.getString(R.string.account_type_bank),
+                                false,
+                                false
+                            ),
+                            AccountTypeEntity(
+                                context.getString(R.string.account_type_card),
+                                false,
+                                true
                             )
+                        )
                     )
-//                    delay(1000)
+                    delay(1000)
                     cardTypeDao().insertAll(
-                            listOf(
-                                    CardTypeEntity(context.getString(R.string.card_type_american_express)),
-                                    CardTypeEntity(context.getString(R.string.card_type_discover)),
-                                    CardTypeEntity(context.getString(R.string.card_type_google_wallet)),
-                                    CardTypeEntity(context.getString(R.string.card_type_jcb)),
-                                    CardTypeEntity(context.getString(R.string.card_type_maestro)),
-                                    CardTypeEntity(context.getString(R.string.card_type_mastercard)),
-                                    CardTypeEntity(context.getString(R.string.card_type_mir)),
-                                    CardTypeEntity(context.getString(R.string.card_type_paypal)),
-                                    CardTypeEntity(context.getString(R.string.card_type_unionpay)),
-                                    CardTypeEntity(context.getString(R.string.card_type_visa)),
-                                    CardTypeEntity(context.getString(R.string.card_type_yandex_money))
-                            )
+                        listOf(
+                            CardTypeEntity(context.getString(R.string.card_type_american_express)),
+                            CardTypeEntity(context.getString(R.string.card_type_discover)),
+                            CardTypeEntity(context.getString(R.string.card_type_google_wallet)),
+                            CardTypeEntity(context.getString(R.string.card_type_jcb)),
+                            CardTypeEntity(context.getString(R.string.card_type_maestro)),
+                            CardTypeEntity(context.getString(R.string.card_type_mastercard)),
+                            CardTypeEntity(context.getString(R.string.card_type_mir)),
+                            CardTypeEntity(context.getString(R.string.card_type_paypal)),
+                            CardTypeEntity(context.getString(R.string.card_type_unionpay)),
+                            CardTypeEntity(context.getString(R.string.card_type_visa)),
+                            CardTypeEntity(context.getString(R.string.card_type_yandex_money))
+                        )
                     )
-//                    delay(1000)
+                    delay(1000)
                     transactionCategoryDao().insertAll(
-                            listOf(
-                                    TransactionCategoryEntity(
-                                            context.getString(R.string.transaction_category_start_balance),
-                                            true,
-                                            -1
-                                    ),
-                                    TransactionCategoryEntity(
-                                            context.getString(R.string.transaction_category_salary),
-                                            true,
-                                            -1
-                                    ),
-                                    TransactionCategoryEntity(
-                                            context.getString(R.string.transaction_category_prepayment),
-                                            true,
-                                            -1
-                                    )
+                        listOf(
+                            TransactionCategoryEntity(
+                                context.getString(R.string.transaction_category_start_balance),
+                                true,
+                                -1
+                            ),
+                            TransactionCategoryEntity(
+                                context.getString(R.string.transaction_category_salary),
+                                true,
+                                -1
+                            ),
+                            TransactionCategoryEntity(
+                                context.getString(R.string.transaction_category_prepayment),
+                                true,
+                                -1
                             )
+                        )
                     )
-//                    delay(1000)
+                    delay(1000)
                     transactionCategoryDao().insertAll(
-                            listOf(
-                                    TransactionCategoryEntity(
-                                            context.getString(R.string.transaction_category_all_for_home),
-                                            false,
-                                            -1
-                                    ),
-                                    TransactionCategoryEntity(
-                                            context.getString(R.string.transaction_category_clothes),
-                                            false,
-                                            -1
-                                    ),
-                                    TransactionCategoryEntity(
-                                            context.getString(R.string.transaction_category_education),
-                                            false,
-                                            -1
-                                    ),
-                                    TransactionCategoryEntity(
-                                            context.getString(R.string.transaction_category_other),
-                                            false,
-                                            -1
-                                    ),
-                                    TransactionCategoryEntity(
-                                            context.getString(R.string.transaction_category_supermarket),
-                                            false,
-                                            -1
-                                    ),
-                                    TransactionCategoryEntity(
-                                            context.getString(R.string.transaction_category_transport),
-                                            false,
-                                            -1
-                                    )
+                        listOf(
+                            TransactionCategoryEntity(
+                                context.getString(R.string.transaction_category_all_for_home),
+                                false,
+                                -1
+                            ),
+                            TransactionCategoryEntity(
+                                context.getString(R.string.transaction_category_clothes_and_accessories),
+                                false,
+                                -1
+                            ),
+                            TransactionCategoryEntity(
+                                context.getString(R.string.transaction_category_education),
+                                false,
+                                -1
+                            ),
+                            TransactionCategoryEntity(
+                                context.getString(R.string.transaction_category_other_expenses),
+                                false,
+                                -1
+                            ),
+                            TransactionCategoryEntity(
+                                context.getString(R.string.transaction_category_supermarket),
+                                false,
+                                -1
+                            ),
+                            TransactionCategoryEntity(
+                                context.getString(R.string.transaction_category_transport),
+                                false,
+                                -1
                             )
+                        )
                     )
-//                    delay(1000)
+                    delay(1000)
                     var parent: Long = transactionCategoryDao().insertEntity(
-                            TransactionCategoryEntity(
-                                    context.getString(R.string.transaction_category_auto),
-                                    false,
-                                    -1
-                            )
+                        TransactionCategoryEntity(
+                            context.getString(R.string.transaction_category_auto),
+                            false,
+                            -1
+                        )
                     )
-//                    delay(1000)
+                    delay(1000)
                     transactionCategoryDao().insertAll(
-                            listOf(
-                                    TransactionCategoryEntity(
-                                            context.getString(R.string.transaction_category_auto_service),
-                                            false,
-                                            parent
-                                    ),
-                                    TransactionCategoryEntity(
-                                            context.getString(R.string.transaction_category_gas_station),
-                                            false,
-                                            parent
-                                    )
+                        listOf(
+                            TransactionCategoryEntity(
+                                context.getString(R.string.transaction_category_auto_service),
+                                false,
+                                parent
+                            ),
+                            TransactionCategoryEntity(
+                                context.getString(R.string.transaction_category_gas_station),
+                                false,
+                                parent
                             )
+                        )
                     )
-//                    delay(1000)
+                    delay(1000)
                     parent = transactionCategoryDao().insertEntity(
-                            TransactionCategoryEntity(
-                                    context.getString(R.string.transaction_category_health_beauty),
-                                    false,
-                                    -1
-                            )
+                        TransactionCategoryEntity(
+                            context.getString(R.string.transaction_category_health_beauty),
+                            false,
+                            -1
+                        )
                     )
-//                    delay(1000)
+                    delay(1000)
                     transactionCategoryDao().insertAll(
-                            listOf(
-                                    TransactionCategoryEntity(
-                                            context.getString(R.string.transaction_category_pharmacy),
-                                            false,
-                                            parent
-                                    )
+                        listOf(
+                            TransactionCategoryEntity(
+                                context.getString(R.string.transaction_category_pharmacy),
+                                false,
+                                parent
                             )
+                        )
                     )
-//                    delay(1000)
+                    delay(1000)
                     parent = transactionCategoryDao().insertEntity(
-                            TransactionCategoryEntity(
-                                    context.getString(R.string.transaction_category_rest_entertainment),
-                                    false,
-                                    -1
-                            )
+                        TransactionCategoryEntity(
+                            context.getString(R.string.transaction_category_rest_and_entertainment),
+                            false,
+                            -1
+                        )
                     )
-//                    delay(1000)
+                    delay(1000)
                     transactionCategoryDao().insertAll(
-                            listOf(
-                                    TransactionCategoryEntity(
-                                            context.getString(R.string.transaction_category_cinema),
-                                            false,
-                                            parent
-                                    ),
-                                    TransactionCategoryEntity(
-                                            context.getString(R.string.transaction_category_restaurant_cafe),
-                                            false,
-                                            parent
-                                    )
+                        listOf(
+                            TransactionCategoryEntity(
+                                context.getString(R.string.transaction_category_cinema),
+                                false,
+                                parent
+                            ),
+                            TransactionCategoryEntity(
+                                context.getString(R.string.transaction_category_restaurant_and_cafe),
+                                false,
+                                parent
                             )
+                        )
                     )
-//                    delay(1000)
+                    delay(1000)
                     parent = transactionCategoryDao().insertEntity(
-                            TransactionCategoryEntity(
-                                    context.getString(R.string.transaction_category_paymnets),
-                                    false,
-                                    -1
-                            )
+                        TransactionCategoryEntity(
+                            context.getString(R.string.transaction_category_payments),
+                            false,
+                            -1
+                        )
                     )
-//                    delay(1000)
+                    delay(1000)
                     transactionCategoryDao().insertAll(
-                            listOf(
-                                    TransactionCategoryEntity(
-                                            context.getString(R.string.transaction_category_mobile_banking),
-                                            false,
-                                            parent
-                                    ),
-                                    TransactionCategoryEntity(
-                                            context.getString(R.string.transaction_category_commission),
-                                            false,
-                                            parent
-                                    ),
-                                    TransactionCategoryEntity(
-                                            context.getString(R.string.transaction_category_repayment_on_credit),
-                                            false,
-                                            parent
-                                    )
+                        listOf(
+                            TransactionCategoryEntity(
+                                context.getString(R.string.transaction_category_mobile_banking),
+                                false,
+                                parent
+                            ),
+                            TransactionCategoryEntity(
+                                context.getString(R.string.transaction_category_commission),
+                                false,
+                                parent
+                            ),
+                            TransactionCategoryEntity(
+                                context.getString(R.string.transaction_category_repayment_on_credit),
+                                false,
+                                parent
                             )
+                        )
                     )
-//                    delay(1000)
+                    delay(1000)
                     var parentChild: Long = transactionCategoryDao().insertEntity(
-                            TransactionCategoryEntity(
-                                    context.getString(R.string.transaction_category_public_services),
-                                    false,
-                                    parent
-                            )
+                        TransactionCategoryEntity(
+                            context.getString(R.string.transaction_category_public_services_payments),
+                            false,
+                            parent
+                        )
                     )
-//                    delay(1000)
+                    delay(1000)
                     transactionCategoryDao().insertAll(
-                            listOf(
-                                    TransactionCategoryEntity(
-                                            context.getString(R.string.transaction_category_electric_power),
-                                            false,
-                                            parentChild
-                                    ),
-                                    TransactionCategoryEntity(
-                                            context.getString(R.string.transaction_category_home_phone),
-                                            false,
-                                            parentChild
-                                    ),
-                                    TransactionCategoryEntity(
-                                            context.getString(R.string.transaction_category_rent),
-                                            false,
-                                            parentChild
-                                    ),
-                                    TransactionCategoryEntity(
-                                            context.getString(R.string.transaction_category_heating),
-                                            false,
-                                            parentChild
-                                    ),
-                                    TransactionCategoryEntity(
-                                            context.getString(R.string.transaction_category_intercome),
-                                            false,
-                                            parentChild
-                                    )
+                        listOf(
+                            TransactionCategoryEntity(
+                                context.getString(R.string.transaction_category_electric_power),
+                                false,
+                                parentChild
+                            ),
+                            TransactionCategoryEntity(
+                                context.getString(R.string.transaction_category_home_phone),
+                                false,
+                                parentChild
+                            ),
+                            TransactionCategoryEntity(
+                                context.getString(R.string.transaction_category_rent),
+                                false,
+                                parentChild
+                            ),
+                            TransactionCategoryEntity(
+                                context.getString(R.string.transaction_category_heating),
+                                false,
+                                parentChild
+                            ),
+                            TransactionCategoryEntity(
+                                context.getString(R.string.transaction_category_intercom),
+                                false,
+                                parentChild
                             )
+                        )
                     )
-//                    delay(1000)
+                    delay(1000)
                     parentChild = transactionCategoryDao().insertEntity(
-                            TransactionCategoryEntity(
-                                    context.getString(R.string.transaction_category_communication_internet),
-                                    false,
-                                    parent
-                            )
+                        TransactionCategoryEntity(
+                            context.getString(R.string.transaction_category_communication_internet),
+                            false,
+                            parent
+                        )
                     )
-//                    delay(1000)
+                    delay(1000)
                     transactionCategoryDao().insertAll(
-                            listOf(
-                                    TransactionCategoryEntity(
-                                            context.getString(R.string.transaction_category_mobile),
-                                            false,
-                                            parentChild
-                                    ),
-                                    TransactionCategoryEntity(
-                                            context.getString(R.string.transaction_category_wired_internet),
-                                            false,
-                                            parentChild
-                                    )
+                        listOf(
+                            TransactionCategoryEntity(
+                                context.getString(R.string.transaction_category_mobile),
+                                false,
+                                parentChild
+                            ),
+                            TransactionCategoryEntity(
+                                context.getString(R.string.transaction_category_wired_internet),
+                                false,
+                                parentChild
                             )
+                        )
                     )
 
                 }

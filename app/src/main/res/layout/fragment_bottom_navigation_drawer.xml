@@ -10,11 +10,11 @@
             android:id="@+id/nav_bottom_sheet"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingTop="@dimen/grid_3"
             app:behavior_halfExpandedRatio="0.6"
             app:behavior_hideable="true"
             app:behavior_skipCollapsed="true"
             app:layout_anchorGravity="bottom"
+            style="@style/Widget.MyFinances.BottomSheet.Modal"
             app:layout_behavior="@string/bottom_sheet_behavior">
 
             <com.google.android.material.navigation.NavigationView

@@ -23,14 +23,14 @@ import com.m.sekoshin.myfinances.R
 import kotlin.math.max
 
 /**
- * A [BottomSheetBehavior.BottomSheetCallback] which helps break apart clients who would like to
+ * A [com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback] which helps break apart clients who would like to
  * react to changed in either the bottom sheet's slide offset or state. Clients can dynamically
  * add or remove [OnSlideAction]s or [OnStateChangedAction]s which will be run when the
  * sheet's slideOffset or state are changed.
  *
  * This callback's behavior differs slightly in that the slideOffset passed to [OnSlideAction]s
  * in [onSlide] is corrected to guarantee that the offset 0.0 <i>always</i> be exactly at the
- * [BottomSheetBehavior.STATE_HALF_EXPANDED] state.
+ * [com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_HALF_EXPANDED] state.
  */
 class BottomNavigationDrawerCallback : BottomSheetBehavior.BottomSheetCallback() {
 
@@ -66,7 +66,7 @@ class BottomNavigationDrawerCallback : BottomSheetBehavior.BottomSheetCallback()
 
     /**
      * Calculate the onSlideOffset which will be given when the bottom sheet is in the
-     * [BottomSheetBehavior.STATE_HALF_EXPANDED] state.
+     * [com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_HALF_EXPANDED] state.
      *
      * Recording the correct slide offset for the half expanded state happens in [onStateChanged].
      * Since the first time the sheet is opened, we haven't yet received a call to [onStateChanged],
@@ -74,9 +74,9 @@ class BottomNavigationDrawerCallback : BottomSheetBehavior.BottomSheetCallback()
      * slideOffset values received between -1 and 1.
      *
      * See:
-     * [BottomSheetBehavior.calculateCollapsedOffset]
-     * [BottomSheetBehavior.calculateHalfExpandedOffset]
-     * [BottomSheetBehavior.dispatchOnSlide]
+     * [com.google.android.material.bottomsheet.BottomSheetBehavior.calculateCollapsedOffset]
+     * [com.google.android.material.bottomsheet.BottomSheetBehavior.calculateHalfExpandedOffset]
+     * [com.google.android.material.bottomsheet.BottomSheetBehavior.dispatchOnSlide]
      */
     @SuppressLint("PrivateResource")
     private fun calculateInitialHalfExpandedSlideOffset(sheet: View) {
@@ -85,15 +85,15 @@ class BottomNavigationDrawerCallback : BottomSheetBehavior.BottomSheetCallback()
 
         val halfExpandedOffset = parent.height * (1 - behavior.halfExpandedRatio)
         val peekHeightMin = parent.resources.getDimensionPixelSize(
-                R.dimen.design_bottom_sheet_peek_height_min
+            R.dimen.design_bottom_sheet_peek_height_min
         )
         val peek = max(peekHeightMin, parent.height - parent.width * 9 / 16)
         val collapsedOffset = max(
-                parent.height - peek,
-                max(0, parent.height - sheet.height)
+            parent.height - peek,
+            max(0, parent.height - sheet.height)
         )
         halfExpandedSlideOffset =
-                (collapsedOffset - halfExpandedOffset) / (parent.height - collapsedOffset)
+            (collapsedOffset - halfExpandedOffset) / (parent.height - collapsedOffset)
     }
 
     fun addOnSlideAction(action: OnSlideAction): Boolean {
@@ -121,10 +121,10 @@ class BottomNavigationDrawerCallback : BottomSheetBehavior.BottomSheetCallback()
  * This differs from [lerp] as the input values are not required to be between 0 and 1.
  */
 fun Float.normalize(
-        inputMin: Float,
-        inputMax: Float,
-        outputMin: Float,
-        outputMax: Float
+    inputMin: Float,
+    inputMax: Float,
+    outputMin: Float,
+    outputMax: Float
 ): Float {
     if (this < inputMin) {
         return outputMin

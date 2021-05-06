@@ -5,8 +5,10 @@ import com.m.sekoshin.myfinances.data.repository.SourceRecipientRepository
 import com.m.sekoshin.myfinances.data.room.entity.SourceRecipientEntity
 import kotlinx.coroutines.launch
 
-class SourceRecipientListViewModel(private val repository: SourceRecipientRepository) : ViewModel() {
-    val allSourceRecipients: LiveData<List<SourceRecipientEntity>> = repository.allSourceRecipients.asLiveData()
+class SourceRecipientListViewModel(private val repository: SourceRecipientRepository) :
+    ViewModel() {
+    val allSourceRecipients: LiveData<List<SourceRecipientEntity>> =
+        repository.allSourceRecipients.asLiveData()
 
     /**
      * Launching a new coroutine to insert the data in a non-blocking way
@@ -16,7 +18,8 @@ class SourceRecipientListViewModel(private val repository: SourceRecipientReposi
     }
 }
 
-class SourceRecipientViewModelFactory(private val repository: SourceRecipientRepository) : ViewModelProvider.Factory {
+class SourceRecipientViewModelFactory(private val repository: SourceRecipientRepository) :
+    ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(SourceRecipientListViewModel::class.java)) {
             return SourceRecipientListViewModel(repository) as T

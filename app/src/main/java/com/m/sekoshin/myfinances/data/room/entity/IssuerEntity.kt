@@ -6,8 +6,9 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "issuers_table")
 data class IssuerEntity(
-        @ColumnInfo(name = "issuersName")
-        var name: String) {
+    @ColumnInfo(name = "issuersName")
+    var name: String
+) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     var id: Long? = null

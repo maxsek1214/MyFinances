@@ -1,11 +1,9 @@
 package com.m.sekoshin.myfinances.data.room.dao
 
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Update
+import androidx.room.*
 
-interface EntityDao<T> {
+@Dao
+abstract interface EntityDao<T> {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(t: T)
 

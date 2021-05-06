@@ -6,8 +6,9 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "aliases_table")
 data class AliasEntity(
-        @ColumnInfo(name = "aliasName")
-        var name: String) {
+    @ColumnInfo(name = "aliasName")
+    var name: String
+) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     var id: Long? = null

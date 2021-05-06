@@ -11,7 +11,8 @@ class IssuerListViewModel(private val repository: IssuerRepository) : ViewModel(
     val allIssuers: LiveData<List<IssuerEntity>> = repository.allIssuers.asLiveData()
 }
 
-class IssuerListViewModelFactory(private val repository: IssuerRepository) : ViewModelProvider.Factory {
+class IssuerListViewModelFactory(private val repository: IssuerRepository) :
+    ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(IssuerListViewModel::class.java)) {
             return IssuerListViewModel(repository) as T

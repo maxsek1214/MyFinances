@@ -1,0 +1,867 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "53b45e41aa03f1f3895efd537e8cefae",
+    "entities": [
+      {
+        "tableName": "accountTypes_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `typeName` TEXT NOT NULL, `isTypeCash` INTEGER NOT NULL, `isTypeCard` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "typeName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isCash",
+            "columnName": "isTypeCash",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isCard",
+            "columnName": "isTypeCard",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "aliases_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `aliasName` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "aliasName",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "cardTypes_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `cardTypeName` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "cardTypeName",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "cashAccounts_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `accountName` TEXT NOT NULL, `accountType_id` INTEGER NOT NULL DEFAULT -1, `issuer_id` INTEGER NOT NULL DEFAULT -1, `cardType_id` INTEGER NOT NULL DEFAULT -1, `accountNumber` TEXT NOT NULL DEFAULT '0', `isAccountCredit` INTEGER NOT NULL DEFAULT 0, `accountLimit` REAL NOT NULL DEFAULT 0, `accountBalance` REAL NOT NULL DEFAULT 0, FOREIGN KEY(`accountType_id`) REFERENCES `accountTypes_table`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`issuer_id`) REFERENCES `issuers_table`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`cardType_id`) REFERENCES `cardTypes_table`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "accountName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "accountTypeId",
+            "columnName": "accountType_id",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "-1"
+          },
+          {
+            "fieldPath": "issuersId",
+            "columnName": "issuer_id",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "-1"
+          },
+          {
+            "fieldPath": "cardTypeId",
+            "columnName": "cardType_id",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "-1"
+          },
+          {
+            "fieldPath": "number",
+            "columnName": "accountNumber",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'0'"
+          },
+          {
+            "fieldPath": "credit",
+            "columnName": "isAccountCredit",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "limit",
+            "columnName": "accountLimit",
+            "affinity": "REAL",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "balance",
+            "columnName": "accountBalance",
+            "affinity": "REAL",
+            "notNull": true,
+            "defaultValue": "0"
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_cashAccounts_table_issuer_id",
+            "unique": false,
+            "columnNames": [
+              "issuer_id"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_cashAccounts_table_issuer_id` ON `${TABLE_NAME}` (`issuer_id`)"
+          },
+          {
+            "name": "index_cashAccounts_table_cardType_id",
+            "unique": false,
+            "columnNames": [
+              "cardType_id"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_cashAccounts_table_cardType_id` ON `${TABLE_NAME}` (`cardType_id`)"
+          },
+          {
+            "name": "index_cashAccounts_table_accountType_id",
+            "unique": false,
+            "columnNames": [
+              "accountType_id"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_cashAccounts_table_accountType_id` ON `${TABLE_NAME}` (`accountType_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "accountTypes_table",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "accountType_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "issuers_table",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "issuer_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "cardTypes_table",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "cardType_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "cashiersChecks_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `fn` INTEGER NOT NULL, `fd` INTEGER NOT NULL, `fpd` INTEGER NOT NULL, `check_url` TEXT NOT NULL, `status` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "fn",
+            "columnName": "fn",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fd",
+            "columnName": "fd",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fpd",
+            "columnName": "fpd",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "url",
+            "columnName": "check_url",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "cashTransactions_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `status` INTEGER NOT NULL, `sourceRecipient_id` INTEGER NOT NULL DEFAULT -1, `transactionCategory_id` INTEGER NOT NULL DEFAULT -1, `cashiersCheck_id` INTEGER NOT NULL DEFAULT -1, `dateTime` INTEGER NOT NULL, `amount` REAL NOT NULL, `comment` TEXT NOT NULL, FOREIGN KEY(`cashiersCheck_id`) REFERENCES `cashiersChecks_table`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`transactionCategory_id`) REFERENCES `transactionCategories_table`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`sourceRecipient_id`) REFERENCES `sourceRecipients_table`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sourceRecipientId",
+            "columnName": "sourceRecipient_id",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "-1"
+          },
+          {
+            "fieldPath": "transactionCategoryId",
+            "columnName": "transactionCategory_id",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "-1"
+          },
+          {
+            "fieldPath": "cashiersCheckId",
+            "columnName": "cashiersCheck_id",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "-1"
+          },
+          {
+            "fieldPath": "dateTime",
+            "columnName": "dateTime",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "amount",
+            "columnName": "amount",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "comment",
+            "columnName": "comment",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_cashTransactions_table_transactionCategory_id",
+            "unique": false,
+            "columnNames": [
+              "transactionCategory_id"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_cashTransactions_table_transactionCategory_id` ON `${TABLE_NAME}` (`transactionCategory_id`)"
+          },
+          {
+            "name": "index_cashTransactions_table_sourceRecipient_id",
+            "unique": false,
+            "columnNames": [
+              "sourceRecipient_id"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_cashTransactions_table_sourceRecipient_id` ON `${TABLE_NAME}` (`sourceRecipient_id`)"
+          },
+          {
+            "name": "index_cashTransactions_table_cashiersCheck_id",
+            "unique": false,
+            "columnNames": [
+              "cashiersCheck_id"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_cashTransactions_table_cashiersCheck_id` ON `${TABLE_NAME}` (`cashiersCheck_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "cashiersChecks_table",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "cashiersCheck_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "transactionCategories_table",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "transactionCategory_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "sourceRecipients_table",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "sourceRecipient_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "flowOfFunds_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `cashAccount_id` INTEGER NOT NULL DEFAULT -1, `cashTransaction_id` INTEGER NOT NULL DEFAULT -1, `balance` REAL NOT NULL, FOREIGN KEY(`cashAccount_id`) REFERENCES `cashAccounts_table`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`cashTransaction_id`) REFERENCES `cashTransactions_table`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "cashAccountId",
+            "columnName": "cashAccount_id",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "-1"
+          },
+          {
+            "fieldPath": "cashTransactionId",
+            "columnName": "cashTransaction_id",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "-1"
+          },
+          {
+            "fieldPath": "balance",
+            "columnName": "balance",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_flowOfFunds_table_cashAccount_id",
+            "unique": false,
+            "columnNames": [
+              "cashAccount_id"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_flowOfFunds_table_cashAccount_id` ON `${TABLE_NAME}` (`cashAccount_id`)"
+          },
+          {
+            "name": "index_flowOfFunds_table_cashTransaction_id",
+            "unique": false,
+            "columnNames": [
+              "cashTransaction_id"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_flowOfFunds_table_cashTransaction_id` ON `${TABLE_NAME}` (`cashTransaction_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "cashAccounts_table",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "cashAccount_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "cashTransactions_table",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "cashTransaction_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "goods_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `storeName` TEXT NOT NULL, `alias_id` INTEGER NOT NULL DEFAULT -1, `goodsCategory_id` INTEGER NOT NULL DEFAULT -1, FOREIGN KEY(`alias_id`) REFERENCES `aliases_table`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`goodsCategory_id`) REFERENCES `goodCategories_table`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "storeName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "aliasId",
+            "columnName": "alias_id",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "-1"
+          },
+          {
+            "fieldPath": "goodsCategoryId",
+            "columnName": "goodsCategory_id",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "-1"
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_goods_table_alias_id",
+            "unique": false,
+            "columnNames": [
+              "alias_id"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_goods_table_alias_id` ON `${TABLE_NAME}` (`alias_id`)"
+          },
+          {
+            "name": "index_goods_table_goodsCategory_id",
+            "unique": false,
+            "columnNames": [
+              "goodsCategory_id"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_goods_table_goodsCategory_id` ON `${TABLE_NAME}` (`goodsCategory_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "aliases_table",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "alias_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "goodCategories_table",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "goodsCategory_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "goodCategories_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `categoryName` TEXT NOT NULL, `parent_id` INTEGER NOT NULL DEFAULT -1)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "categoryName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "parent",
+            "columnName": "parent_id",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "-1"
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_goodCategories_table_parent_id",
+            "unique": false,
+            "columnNames": [
+              "parent_id"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_goodCategories_table_parent_id` ON `${TABLE_NAME}` (`parent_id`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "issuers_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `issuersName` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "issuersName",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "purchases_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `cashiersCheck_id` INTEGER NOT NULL DEFAULT -1, `store_id` INTEGER NOT NULL DEFAULT -1, `good_id` INTEGER NOT NULL DEFAULT -1, `price` REAL NOT NULL, `quantity` REAL NOT NULL, `totalPrice` REAL NOT NULL, FOREIGN KEY(`cashiersCheck_id`) REFERENCES `cashiersChecks_table`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`store_id`) REFERENCES `stores_table`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "cashiersCheckId",
+            "columnName": "cashiersCheck_id",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "-1"
+          },
+          {
+            "fieldPath": "storeId",
+            "columnName": "store_id",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "-1"
+          },
+          {
+            "fieldPath": "goodId",
+            "columnName": "good_id",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "-1"
+          },
+          {
+            "fieldPath": "price",
+            "columnName": "price",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "quantity",
+            "columnName": "quantity",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "total",
+            "columnName": "totalPrice",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_purchases_table_cashiersCheck_id",
+            "unique": false,
+            "columnNames": [
+              "cashiersCheck_id"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_purchases_table_cashiersCheck_id` ON `${TABLE_NAME}` (`cashiersCheck_id`)"
+          },
+          {
+            "name": "index_purchases_table_store_id",
+            "unique": false,
+            "columnNames": [
+              "store_id"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_purchases_table_store_id` ON `${TABLE_NAME}` (`store_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "cashiersChecks_table",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "cashiersCheck_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "stores_table",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "store_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "sourceRecipients_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `sourceRecipientName` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "sourceRecipientName",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "stores_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `storeName` TEXT NOT NULL, `alias_id` INTEGER NOT NULL DEFAULT -1, FOREIGN KEY(`alias_id`) REFERENCES `aliases_table`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "storeName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "aliasId",
+            "columnName": "alias_id",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "-1"
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_stores_table_alias_id",
+            "unique": false,
+            "columnNames": [
+              "alias_id"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_stores_table_alias_id` ON `${TABLE_NAME}` (`alias_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "aliases_table",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "alias_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "transactionCategories_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `categoryName` TEXT NOT NULL, `income_expense` INTEGER NOT NULL, `parent_id` INTEGER NOT NULL DEFAULT -1)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "categoryName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "incomeExpense",
+            "columnName": "income_expense",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "parent",
+            "columnName": "parent_id",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "-1"
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_transactionCategories_table_parent_id",
+            "unique": false,
+            "columnNames": [
+              "parent_id"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_transactionCategories_table_parent_id` ON `${TABLE_NAME}` (`parent_id`)"
+          }
+        ],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '53b45e41aa03f1f3895efd537e8cefae')"
+    ]
+  }
+}
