@@ -11,36 +11,27 @@ import android.widget.Toast
 import androidx.annotation.MenuRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import com.google.android.material.navigation.NavigationView
-import com.google.android.material.transition.MaterialSharedAxis
 import com.m.sekoshin.myfinances.FinApp
 import com.m.sekoshin.myfinances.R
 import com.m.sekoshin.myfinances.databinding.ActivityMainBinding
 import com.m.sekoshin.myfinances.ui.nav.BottomNavigationDrawerFragment
 import com.m.sekoshin.myfinances.ui.nav.ChangeSettingsMenuStateAction
-import com.m.sekoshin.myfinances.ui.settings.SettingsFragmentDirections
 import com.m.sekoshin.myfinances.util.contentView
 
 class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedListener,
     NavigationView.OnNavigationItemSelectedListener, Toolbar.OnMenuItemClickListener {
 
-    private val TAG by lazy { "DEBUG: " + javaClass.simpleName }
+    private val TAG by lazy {"DEBUG: " + javaClass.simpleName}
 
 //    private val _menuState = MutableStateFlow(true)
 //    private val menuState: StateFlow<Boolean>
 //        get() = _menuState
 
     private val binding: ActivityMainBinding by contentView(R.layout.activity_main)
-
-    private val currentNavigationFragment: Fragment?
-        get() = supportFragmentManager.findFragmentById(R.id.nav_fragment)
-            ?.childFragmentManager
-            ?.fragments
-            ?.first()
 
     private val bottomNavDrawer: BottomNavigationDrawerFragment by lazy(LazyThreadSafetyMode.NONE) {
         supportFragmentManager.findFragmentById(R.id.bottom_nav_drawer) as BottomNavigationDrawerFragment
@@ -65,9 +56,6 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         binding.fabAdd.apply {
             setShowMotionSpecResource(R.animator.fab_show)
             setHideMotionSpecResource(R.animator.fab_hide)
-            setOnClickListener {
-                showAddFragment()
-            }
         }
 
         bottomNavDrawer.apply {
@@ -83,7 +71,6 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
                             (bottomAppBar.navigationIcon as AnimatedVectorDrawable).start()
                         } else {
                             bottomAppBar.setNavigationIcon(R.drawable.avd_pathmorph_drawer_arrow_to_hamburger)
-
                             fabAdd.show()
                             bottomAppBar.replaceMenu(getBottomAppBarMenuForDestination())
                             (bottomAppBar.navigationIcon as AnimatedVectorDrawable).start()
@@ -100,30 +87,9 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
 //            }
 //        }
         (application as FinApp).preferenceRepository.themeModeLive.observe(this) { themeMode ->
-            delegate.localNightMode = themeMode
+            Toast.makeText(this, "ThemeMode = $themeMode", Toast.LENGTH_SHORT).show()
+            themeMode?.let { delegate.localNightMode = it }
         }
-    }
-
-    private fun showAddFragment() {
-        hideBottomAppBar()
-        val dest = getNavigation().currentDestination
-        when (dest?.id) {
-            R.id.transactionsFragment -> getNavigation().navigate(R.id.action_transactionsFragment_to_addTransactionFragment)
-            R.id.accountsFragment -> getNavigation().navigate(R.id.action_accountsFragment_to_addAccountFragment)
-        }
-    }
-
-    private fun showSettingsFragment() {
-        hideBottomAppBar()
-        currentNavigationFragment?.apply {
-            exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
-                duration = resources.getInteger(R.integer.motion_duration_large).toLong()
-            }
-            reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
-                duration = resources.getInteger(R.integer.motion_duration_large).toLong()
-            }
-        }
-        getNavigation().navigate(SettingsFragmentDirections.actionGlobalSettingsFragment())
     }
 
     override fun onDestinationChanged(
@@ -143,53 +109,21 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
             R.id.settingsFragment -> {
                 Log.d(TAG, "starting settingsFragment")
             }
-            R.id.accountsFragment -> {
-                showBottomAppBar()
-                binding.bottomAppBar.replaceMenu(getBottomAppBarMenuForDestination(destination))
-                Log.d(TAG, "starting accountsFragment")
-            }
         }
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.menu_accounts -> {
-                Toast.makeText(this, getString(R.string.menu_accounts), Toast.LENGTH_SHORT).show()
-                val dest = getNavigation().currentDestination
-
-                if (dest?.id != R.id.accountsFragment) {
-
-                    bottomNavDrawer.close()
-
-                    currentNavigationFragment?.apply {
-                        exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
-                            duration =
-                                resources.getInteger(R.integer.motion_duration_large).toLong()
-                        }
-                        reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
-                            duration =
-                                resources.getInteger(R.integer.motion_duration_large).toLong()
-                        }
-                    }
-                    getNavigation().navigate(R.id.action_transactionsFragment_to_accountsFragment)
-                }
-                item.isChecked = true
-            }
-//            R.id.menu_operations -> {
-//                Toast.makeText(this, getString(R.string.menu_operations), Toast.LENGTH_SHORT).show()
-//
-//                bottomNavDrawer.close()
-//
-//                currentNavigationFragment?.apply {
-//                    exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
-//                        duration = resources.getInteger(R.integer.motion_duration_large).toLong()
-//                    }
-//                    reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
-//                        duration = resources.getInteger(R.integer.motion_duration_large).toLong()
-//                    }
-//                }
-//                getNavigation().navigate(TransactionsFragmentDirections.actionGlobalTransactionsFragment())
-//            }
+            R.id.menu_accounts -> Toast.makeText(
+                this,
+                getString(R.string.menu_accounts),
+                Toast.LENGTH_SHORT
+            ).show()
+            R.id.menu_operations -> Toast.makeText(
+                this,
+                getString(R.string.menu_operations),
+                Toast.LENGTH_SHORT
+            ).show()
             R.id.menu_users -> Toast.makeText(
                 this,
                 getString(R.string.menu_users),
@@ -273,8 +207,9 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
                     getString(R.string.menu_bottomappbar_settings),
                     Toast.LENGTH_SHORT
                 ).show()
-                bottomNavDrawer.toggle()
-                showSettingsFragment()
+                bottomNavDrawer.close()
+                hideBottomAppBar()
+                getNavigation().navigate(R.id.action_transactionsFragment_to_settingsFragment)
             }
             R.id.menu_bottomappbar_transactions_filter -> Toast.makeText(
                 this@MainActivity,
