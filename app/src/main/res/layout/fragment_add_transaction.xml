@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="dateFormat"
+            type="java.text.DateFormat" />
+
+        <variable
+            name="timeFormat"
+            type="java.text.DateFormat" />
+
+        <variable
+            name="dateTime"
+            type="java.util.Date" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:paddingTop="?actionBarSize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/bottom_app_bar_height">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_caption_date_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:text="@string/date_time_caption"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_operation_date"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:drawablePadding="8dp"
+                        android:focusable="true"
+                        android:gravity="center_vertical"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:text="@{dateFormat.format(dateTime)}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                        app:drawableStartCompat="@drawable/ic_twotone_calendar_today_24"
+                        app:drawableTint="?attr/colorSecondary"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_caption_date_time"
+                        app:layout_constraintWidth_default="percent"
+                        app:layout_constraintWidth_percent=".65" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_operation_time"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:drawableStart="@drawable/ic_twotone_access_time_24"
+                        android:drawablePadding="8dp"
+                        android:focusable="true"
+                        android:gravity="center_vertical"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:text="@{timeFormat.format(dateTime)}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                        app:drawableTint="?attr/colorSecondary"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_caption_date_time"
+                        app:layout_constraintWidth_default="percent"
+                        app:layout_constraintWidth_percent=".35" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/divider" />
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbarOperation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/colorPrimary"
+                android:minHeight="?attr/actionBarSize"
+                style="?attr/toolbarStyle"
+                app:title="@string/addOperationFragmentLabel"
+                app:subtitle="@string/AddingSubtitle"/>
+        </com.google.android.material.appbar.AppBarLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+
+
+</layout>

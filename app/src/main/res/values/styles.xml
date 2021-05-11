@@ -5,8 +5,8 @@
 <!--        <item name="insetForeground">@android:color/transparent</item>-->
         <item name="insetForeground">@android:color/transparent</item>
         <!--Set the background color of NavigationView-->
-<!--        <item name="android:background">@android:color/transparent</item>-->
-        <item name="android:background">@color/material_color_white_20_percent</item>
+        <item name="android:background">@android:color/transparent</item>
+<!--        <item name="android:background">@color/material_color_white_20_percent</item>-->
         <item name="elevation">0dp</item>
         <item name="itemTextAppearance">?attr/textAppearanceBody2</item>
         <item name="itemTextColor">?attr/colorOnSurface</item>
@@ -15,12 +15,18 @@
 
     <style name="Widget.MyFinances.BottomSheet.Modal" parent="Widget.MaterialComponents.BottomSheet.Modal">
         <item name="shapeAppearanceOverlay">?attr/shapeAppearanceLargeComponent</item>
+        <item name="android:background">@android:color/transparent</item>
     </style>
     
     <style name="TextAppearance.MyFinances.Body2" parent="TextAppearance.MaterialComponents.Body2">
         <item name="android:textColor">@color/material_color_black</item>
         <item name="android:textSize">14sp</item>
     </style>
+
+    <style name="Widget.MyFinances.FloatingActionButton" parent="Widget.Design.FloatingActionButton">
+        <item name="maxImageSize">@dimen/design_fab_image_size</item>
+    </style>
+
 
 
 </resources>

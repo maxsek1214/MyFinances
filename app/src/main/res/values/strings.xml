@@ -94,5 +94,14 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="transaction_date">Date</string>
+    <string name="transaction_time">Time</string>
+    <string name="date_time_caption"><![CDATA[Date & time]]></string>
+    <string name="EditingSubtitle">Editing</string>
+    <string name="AddingSubtitle">Adding</string>
+
+    <string name="addOperationFragmentLabel">Operation</string>
+    <string name="addAccountFragmentLabel">Account</string>
+    <string name="settingsFragmentLabel">Settings</string>
 
 </resources>

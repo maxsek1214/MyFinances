@@ -35,7 +35,8 @@ class FinApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        preferenceRepository = PreferenceRepository(PreferenceManager.getDefaultSharedPreferences(this))
+        preferenceRepository =
+            PreferenceRepository(PreferenceManager.getDefaultSharedPreferences(this))
     }
 
 }
