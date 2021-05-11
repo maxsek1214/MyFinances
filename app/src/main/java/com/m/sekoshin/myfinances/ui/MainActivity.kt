@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
 
     private val binding: ActivityMainBinding by contentView(R.layout.activity_main)
 
-    private val currentNavigationFragment: Fragment?
+    val currentNavigationFragment: Fragment?
         get() = supportFragmentManager.findFragmentById(R.id.nav_fragment)
             ?.childFragmentManager
             ?.fragments
