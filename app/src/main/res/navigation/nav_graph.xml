@@ -10,23 +10,54 @@
         android:name="com.m.sekoshin.myfinances.ui.splash.SplashFragment"
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash">
+
         <action
             android:id="@+id/action_splashFragment_to_transactionsFragment"
             app:destination="@id/transactionsFragment"
             app:popUpTo="@id/splashFragment"
             app:popUpToInclusive="true" />
+
     </fragment>
+
     <fragment
         android:id="@+id/transactionsFragment"
         android:name="com.m.sekoshin.myfinances.ui.transactions.TransactionsFragment"
         android:label="fragment_transactions"
         tools:layout="@layout/fragment_transactions">
         <action
-            android:id="@+id/action_transactionsFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment" />
+            android:id="@+id/action_transactionsFragment_to_addTransactionFragment"
+            app:destination="@id/addTransactionFragment" />
+        <action
+            android:id="@+id/action_transactionsFragment_to_accountsFragment"
+            app:destination="@id/accountsFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.m.sekoshin.myfinances.ui.settings.SettingsFragment"
-        android:label="SettingsFragment" />
+        android:label="@string/settingsFragmentLabel" />
+
+    <fragment
+        android:id="@+id/addTransactionFragment"
+        android:name="com.m.sekoshin.myfinances.ui.addtransaction.AddTransactionFragment"
+        android:label="@string/addOperationFragmentLabel" />
+
+    <fragment
+        android:id="@+id/addAccountFragment"
+        android:name="com.m.sekoshin.myfinances.ui.addaccount.AddAccountFragment"
+        android:label="@string/addAccountFragmentLabel" />
+
+    <fragment
+        android:id="@+id/accountsFragment"
+        android:name="com.m.sekoshin.myfinances.ui.accounts.AccountsFragment"
+        android:label="fragment_accounts"
+        tools:layout="@layout/fragment_accounts">
+        <action
+            android:id="@+id/action_accountsFragment_to_addAccountFragment"
+            app:destination="@id/addAccountFragment" />
+    </fragment>
+
+    <action
+        android:id="@+id/action_global_settingsFragment"
+        app:destination="@id/settingsFragment" />
 </navigation>

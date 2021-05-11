@@ -33,7 +33,8 @@
         <item name="bottomAppBarStyle">@style/Widget.MaterialComponents.BottomAppBar.PrimarySurface</item>
         <item name="bottomSheetStyle">@style/Widget.MaterialComponents.BottomSheet.Modal</item>
         <item name="navigationViewStyle">@style/Widget.MyFinances.NavigationView</item>
-
+        <item name="toolbarStyle">@style/Widget.MaterialComponents.Toolbar.PrimarySurface</item>
+        <item name="floatingActionButtonStyle">@style/Widget.MyFinances.FloatingActionButton</item>
         <!--
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="android:textColorPrimary">@color/primary_text</item>
@@ -54,15 +55,8 @@
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
     </style>
 
-    <style name="Theme.MyFinances.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="Theme.MyFinances.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
-    <style name="Theme.MyFinances.PreferenceTheme" parent="PreferenceThemeOverlay">
-        <item name="preferenceCategoryTitleTextAppearance">@style/TextAppearance.MyFinances.Body2</item>
-    </style>
-
     <style name="Theme.MyFinances.BottomSheetDialog" parent="Widget.MaterialComponents.BottomSheet">
         <item name="bottomSheetStyle">@style/Widget.MyFinances.BottomSheet.Modal</item>
     </style>
+
 </resources>

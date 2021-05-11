@@ -55,4 +55,12 @@
     <string name="attachment_title">Загрузка приложений</string>
     <string name="attachment_summary_on">Автоматически загружать приложения для входящей почты</string>
     <string name="attachment_summary_off">Загрузка по требованию</string>
+    <string name="transaction_date">Дата</string>
+    <string name="transaction_time">Время</string>
+    <string name="date_time_caption"><![CDATA[Дата & время]]></string>
+    <string name="EditingSubtitle">Редактирование</string>
+    <string name="AddingSubtitle">Добавление</string>
+    <string name="addOperationFragmentLabel">Операция</string>
+    <string name="settingsFragmentLabel">Настройки</string>
+    <string name="addAccountFragmentLabel">Счёт</string>
 </resources>

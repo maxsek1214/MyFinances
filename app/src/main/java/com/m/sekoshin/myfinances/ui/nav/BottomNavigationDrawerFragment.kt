@@ -88,12 +88,6 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
             STATE_HALF_EXPANDED,
             STATE_EXPANDED,
             STATE_COLLAPSED -> close()
-            STATE_DRAGGING -> {
-                TODO()
-            }
-            STATE_SETTLING -> {
-                TODO()
-            }
         }
     }
 
