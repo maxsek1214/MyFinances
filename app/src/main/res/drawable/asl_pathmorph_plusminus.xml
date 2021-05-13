@@ -8,7 +8,8 @@
 
     <item
         android:id="@+id/plus"
-        android:drawable="@drawable/vd_pathmorph_plusminus_plus" />
+        android:drawable="@drawable/vd_pathmorph_plusminus_plus"
+        android:state_checked="false"/>
 
     <transition
         android:drawable="@drawable/avd_pathmorph_plusminus_minus_to_plus"

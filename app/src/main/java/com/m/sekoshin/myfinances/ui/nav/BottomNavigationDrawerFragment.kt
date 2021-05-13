@@ -84,7 +84,7 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
     fun toggle() {
         when (behavior.state) {
             STATE_HIDDEN -> open()
-            STATE_HIDDEN,
+//            STATE_HIDDEN,
             STATE_HALF_EXPANDED,
             STATE_EXPANDED,
             STATE_COLLAPSED -> close()

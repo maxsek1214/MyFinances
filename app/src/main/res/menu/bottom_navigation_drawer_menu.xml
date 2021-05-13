@@ -6,6 +6,7 @@
             <menu>
                 <item
                     android:id="@+id/menu_accounts"
+                    android:checkable="true"
                     android:icon="@drawable/ic_twotone_account_balance_wallet_24"
                     android:title="@string/menu_accounts" />
                 <item
@@ -30,6 +31,10 @@
                 android:id="@+id/menu_receipts"
                 android:icon="@drawable/ic_twotone_receipt_long_24"
                 android:title="@string/menu_receipts" />
+            <item
+                android:id="@+id/menu_sms_messages"
+                android:icon="@drawable/ic_twotone_message_24"
+                android:title="@string/menu_sms_messages" />
         </menu>
     </item>
     <item android:title="@string/menu_analytics">

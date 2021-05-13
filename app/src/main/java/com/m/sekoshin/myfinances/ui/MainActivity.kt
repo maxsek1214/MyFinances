@@ -83,7 +83,6 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
                             (bottomAppBar.navigationIcon as AnimatedVectorDrawable).start()
                         } else {
                             bottomAppBar.setNavigationIcon(R.drawable.avd_pathmorph_drawer_arrow_to_hamburger)
-
                             fabAdd.show()
                             bottomAppBar.replaceMenu(getBottomAppBarMenuForDestination())
                             (bottomAppBar.navigationIcon as AnimatedVectorDrawable).start()

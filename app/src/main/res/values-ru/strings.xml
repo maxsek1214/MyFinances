@@ -63,4 +63,15 @@
     <string name="addOperationFragmentLabel">Операция</string>
     <string name="settingsFragmentLabel">Настройки</string>
     <string name="addAccountFragmentLabel">Счёт</string>
+    <string name="menu_sms_messages">СМС сообщения</string>
+    <string name="account_selector_caption">Выберите счет</string>
+    <string name="operation_type_income_expence">Приход/расход</string>
+    <string name="operation_type_transfer">Перевод</string>
+    <string name="operation_type_selector_caption">Выберите тип операции</string>
+    <string name="operation_sum_caption">Введите сумму операции</string>
+    <string name="account_receiver_selector_caption">Выберите счет получения</string>
+    <string name="operation_sum_hint">Сумма</string>
+    <string name="operation_category_selector_caption">Выберите категорию операции</string>
+    <string name="operation_recipient_payer_selector_caption">Получатель/плательщик операции</string>
+    <string name="operation_ricipient_payer_hint">Получатель/плательщик</string>
 </resources>

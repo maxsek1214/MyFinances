@@ -4,20 +4,15 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
-import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import com.m.sekoshin.myfinances.R
 import com.m.sekoshin.myfinances.databinding.FragmentAddTransactionBinding
-import com.m.sekoshin.myfinances.util.getHour
-import com.m.sekoshin.myfinances.util.getMinutes
-import com.m.sekoshin.myfinances.util.setTime
-import com.m.sekoshin.myfinances.util.viewBinding
+import com.m.sekoshin.myfinances.util.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -37,8 +32,6 @@ class AddTransactionFragment : Fragment(R.layout.fragment_add_transaction) {
         super.onViewCreated(view, savedInstanceState)
         Log.d(TAG, "onViewCreated")
         binding.run {
-//            btnClose.setOnClickListener { findNavController().navigateUp() }
-
             dateFormat = SimpleDateFormat("EEE, dd MMMM yyyy", Locale.getDefault())
             timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
             dateTime = date
@@ -51,7 +44,10 @@ class AddTransactionFragment : Fragment(R.layout.fragment_add_transaction) {
                 showTimePicker()
             }
 
-            toolbarOperation.setupWithNavController(findNavController(), AppBarConfiguration(findNavController().graph))
+            toolbarOperation.setupWithNavController(
+                findNavController(),
+                AppBarConfiguration(findNavController().graph)
+            )
 
 //            toolbar.setNavigationOnClickListener {
 //                findNavController().navigateUp()
@@ -78,7 +74,8 @@ class AddTransactionFragment : Fragment(R.layout.fragment_add_transaction) {
             .setSelection(date.time)
             .build()
         picker.addOnPositiveButtonClickListener {
-            date.time = Date(it).time
+//            date.time = Date(it).time
+            date = setDate(date, it)
             binding.dateTime = date
             binding.executePendingBindings()
         }

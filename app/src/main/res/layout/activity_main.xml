@@ -53,6 +53,7 @@
             android:visibility="gone"
             app:layout_anchor="@id/bottom_app_bar"
             app:srcCompat="@drawable/ic_twotone_add_24"
+            android:tint="?colorOnPrimary"
             tools:visibility="visible" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

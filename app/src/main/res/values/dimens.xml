@@ -8,4 +8,6 @@
     <!--FloatingActionButton-->
     <dimen name="design_fab_image_size">32dp</dimen>
 
+
+    <dimen name="caption_text_height">24dp</dimen>
 </resources>

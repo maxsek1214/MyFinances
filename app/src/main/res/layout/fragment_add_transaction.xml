@@ -27,22 +27,24 @@
             android:layout_height="match_parent">
 
             <androidx.appcompat.widget.LinearLayoutCompat
-                android:paddingTop="?actionBarSize"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingTop="?actionBarSize">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/bottom_app_bar_height">
+                    android:layout_height="wrap_content">
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_caption_date_time"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/caption_text_height"
+                        android:gravity="center_vertical"
                         android:paddingStart="16dp"
                         android:paddingEnd="16dp"
                         android:text="@string/date_time_caption"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -50,7 +52,8 @@
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_operation_date"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/bottom_app_bar_height"
+                        android:background="?attr/selectableItemBackground"
                         android:clickable="true"
                         android:drawablePadding="8dp"
                         android:focusable="true"
@@ -58,19 +61,21 @@
                         android:paddingStart="16dp"
                         android:paddingEnd="16dp"
                         android:text="@{dateFormat.format(dateTime)}"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                        android:textAppearance="?attr/textAppearanceBody2"
                         app:drawableStartCompat="@drawable/ic_twotone_calendar_today_24"
-                        app:drawableTint="?attr/colorSecondary"
+                        app:drawableTint="?attr/colorPrimary"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_caption_date_time"
                         app:layout_constraintWidth_default="percent"
-                        app:layout_constraintWidth_percent=".65" />
+                        app:layout_constraintWidth_percent=".65"
+                        tools:text="чт, 13 мая 2021" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_operation_time"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/bottom_app_bar_height"
+                        android:background="?attr/selectableItemBackground"
                         android:clickable="true"
                         android:drawableStart="@drawable/ic_twotone_access_time_24"
                         android:drawablePadding="8dp"
@@ -79,21 +84,274 @@
                         android:paddingStart="16dp"
                         android:paddingEnd="16dp"
                         android:text="@{timeFormat.format(dateTime)}"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                        app:drawableTint="?attr/colorSecondary"
+                        android:textAppearance="?attr/textAppearanceBody2"
+                        app:drawableTint="?attr/colorPrimary"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_caption_date_time"
                         app:layout_constraintWidth_default="percent"
-                        app:layout_constraintWidth_percent=".35" />
+                        app:layout_constraintWidth_percent=".35"
+                        tools:text="13:05" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <androidx.appcompat.widget.AppCompatImageView
+                <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@drawable/divider" />
+                    android:background="?android:attr/listDivider" />
 
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_caption_operation_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/caption_text_height"
+                        android:gravity="center_vertical"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:text="@string/operation_type_selector_caption"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/tbl_operation_type_selector"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/bottom_app_bar_height"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_caption_operation_type">
+
+                        <com.google.android.material.tabs.TabItem
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/operation_type_income_expence" />
+
+                        <com.google.android.material.tabs.TabItem
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/operation_type_transfer" />
+
+                    </com.google.android.material.tabs.TabLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:attr/listDivider" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_caption_account_selector"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/caption_text_height"
+                        android:gravity="center_vertical"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:text="@string/account_selector_caption"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <Spinner
+                        android:id="@+id/sp_account"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/bottom_app_bar_height"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_caption_account_selector" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:attr/listDivider" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_caption_account_receiver_selector"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/caption_text_height"
+                        android:gravity="center_vertical"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:text="@string/account_receiver_selector_caption"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <Spinner
+                        android:id="@+id/sp_account_receiver"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/bottom_app_bar_height"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_caption_account_receiver_selector" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:attr/listDivider" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_caption_operation_recipient_payer_selector"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/caption_text_height"
+                        android:gravity="center_vertical"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:text="@string/operation_recipient_payer_selector_caption"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/bottom_app_bar_height"
+                        app:boxBackgroundColor="@color/material_color_white"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                        android:hint="@string/operation_ricipient_payer_hint"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_caption_operation_recipient_payer_selector">
+
+                        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                            android:id="@+id/actv_operation_recipient_payer"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/bottom_app_bar_height" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:attr/listDivider" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_caption_operation_category_selector"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/caption_text_height"
+                        android:gravity="center_vertical"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:text="@string/operation_category_selector_caption"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <Spinner
+                        android:id="@+id/sp_operation_category"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/bottom_app_bar_height"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_caption_operation_category_selector" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:attr/listDivider" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_caption_operation_sum"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/caption_text_height"
+                        android:gravity="center_vertical"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:text="@string/operation_sum_caption"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_plus_minus"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="?selectableItemBackground"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_caption_operation_sum"
+                        app:srcCompat="@drawable/asl_pathmorph_plusminus" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilt_operation_sum"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/bottom_app_bar_height"
+                        android:hint="@string/operation_sum_hint"
+                        android:orientation="horizontal"
+                        android:paddingStart="48dp"
+                        android:paddingEnd="48dp"
+                        app:boxBackgroundColor="@color/material_color_white"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/iv_calc"
+                        app:layout_constraintStart_toEndOf="@id/iv_plus_minus"
+                        app:layout_constraintTop_toBottomOf="@id/tv_caption_operation_sum">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical|end"
+                            android:imeOptions="actionDone"
+                            android:inputType="numberDecimal" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_calc"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="?selectableItemBackground"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_caption_operation_sum"
+                        app:srcCompat="@drawable/ic_twotone_calculate_24" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:attr/listDivider" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -106,18 +364,16 @@
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbarOperation"
+                style="?attr/toolbarStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/colorPrimary"
                 android:minHeight="?attr/actionBarSize"
-                style="?attr/toolbarStyle"
-                app:title="@string/addOperationFragmentLabel"
-                app:subtitle="@string/AddingSubtitle"/>
+                app:subtitle="@string/AddingSubtitle"
+                app:title="@string/addOperationFragmentLabel" />
         </com.google.android.material.appbar.AppBarLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-
 
 
 </layout>
